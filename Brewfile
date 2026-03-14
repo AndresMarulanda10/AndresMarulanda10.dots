@@ -1,0 +1,30 @@
+# ─── Taps ─────────────────────────────────────────────────────────────────────
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "Gentleman-Programming/tap"
+
+# ─── CLI Tools ────────────────────────────────────────────────────────────────
+brew "git"
+brew "gh"                    # GitHub CLI
+brew "lazygit"               # Git TUI
+brew "bat"                   # cat con syntax highlighting
+brew "fd"                    # find moderno
+brew "eza"                   # ls moderno
+
+# ─── Zsh ──────────────────────────────────────────────────────────────────────
+brew "zsh-syntax-highlighting"
+brew "zsh-autosuggestions"
+
+# ─── Runtimes ─────────────────────────────────────────────────────────────────
+brew "node"
+brew "openjdk"               # Java — symlink manual requerido post-install
+
+# ─── Apps ─────────────────────────────────────────────────────────────────────
+cask "visual-studio-code"
+cask "orbstack"              # Solo macOS — omitir en Linux
+cask "insomnia"
+cask "opencode"
+
+# ─── Fuentes ──────────────────────────────────────────────────────────────────
+tap "homebrew/cask-fonts"
+cask "font-jetbrains-mono-nerd-font"
