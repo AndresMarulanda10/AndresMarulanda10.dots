@@ -121,11 +121,6 @@ alt-shift-l = ['join-with right', 'mode main']
 if.app-id = 'com.microsoft.VSCode'
 run = 'move-node-to-workspace V'
 
-# Cursor (VS Code fork — com.todesktop.230313mzl4w4u92)
-[[on-window-detected]]
-if.app-id = 'com.todesktop.230313mzl4w4u92'
-run = 'move-node-to-workspace V'
-
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 run = 'move-node-to-workspace B'
