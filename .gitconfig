@@ -1,0 +1,74 @@
+# ─── Identidad ────────────────────────────────────────────────────────────────
+[user]
+	name  = Andres Marulanda
+	email = andresmarulanda1027@icloud.com
+
+# ─── Editor ───────────────────────────────────────────────────────────────────
+[core]
+	editor     = code --wait
+	autocrlf   = input
+	whitespace = trailing-space,space-before-tab
+
+# ─── Pull / Push ──────────────────────────────────────────────────────────────
+[pull]
+	rebase = false
+
+[push]
+	default      = current
+	autoSetupRemote = true
+
+# ─── Diff / Merge ─────────────────────────────────────────────────────────────
+[merge]
+	tool = vscode
+
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+
+[diff]
+	tool = vscode
+
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+
+# ─── Colores ──────────────────────────────────────────────────────────────────
+[color]
+	ui = auto
+
+[color "branch"]
+	current  = yellow bold
+	local    = green
+	remote   = cyan
+
+[color "diff"]
+	meta     = yellow
+	frag     = magenta bold
+	old      = red bold
+	new      = green bold
+
+[color "status"]
+	added     = green bold
+	changed   = yellow bold
+	untracked = red bold
+
+# ─── Aliases ──────────────────────────────────────────────────────────────────
+[alias]
+	st  = status -sb
+	lg  = log --oneline --graph --decorate --all
+	lg1 = log --oneline --graph --decorate
+	last = log -1 HEAD --stat
+	unstage = reset HEAD --
+	undo    = reset --soft HEAD~1
+	aliases = config --get-regexp alias
+
+# ─── Miscelánea ───────────────────────────────────────────────────────────────
+[init]
+	defaultBranch = main
+
+[fetch]
+	prune = true
+
+[rerere]
+	enabled = true
+
+[help]
+	autocorrect = 1

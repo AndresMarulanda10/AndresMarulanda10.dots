@@ -22,9 +22,17 @@ BREW_PREFIX="$(brew --prefix)"
 source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
-# ─── LS Colors ────────────────────────────────────────────────────────────────
-export LS_COLORS="di=38;5;67:ow=48;5;60:ex=38;5;132:ln=38;5;144:*.tar=38;5;180:*.zip=38;5;180:*.jpg=38;5;175:*.png=38;5;175:*.mp3=38;5;175:*.wav=38;5;175:*.txt=38;5;223:*.sh=38;5;132"
-alias ls='ls --color=auto'
+# ─── eza (ls moderno) ─────────────────────────────────────────────────────────
+if command -v eza &>/dev/null; then
+    alias ls='eza --icons --group-directories-first'
+    alias la='eza --icons --group-directories-first -a'
+    alias ll='eza --icons --group-directories-first -l --git'
+    alias lla='eza --icons --group-directories-first -la --git'
+    alias lt='eza --icons --tree --level=2'
+    alias lta='eza --icons --tree --level=2 -a'
+else
+    alias ls='ls --color=auto'
+fi
 
 # ─── Aliases ──────────────────────────────────────────────────────────────────
 

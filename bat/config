@@ -1,0 +1,15 @@
+# ─── bat config ───────────────────────────────────────────────────────────────
+
+# Tema Monokai Pro
+--theme="Monokai Extended"
+
+# Mostrar números de línea
+--style="numbers,changes,header"
+
+# Pager — usa less con colores
+--pager="less -RF"
+
+# Mapeo de sintaxis extra
+--map-syntax="*.toml:TOML"
+--map-syntax="*.zshrc:Bourne Again Shell (bash)"
+--map-syntax="*.zsh-theme:Bourne Again Shell (bash)"
