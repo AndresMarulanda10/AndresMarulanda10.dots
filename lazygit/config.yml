@@ -1,0 +1,70 @@
+# ─── Monokai Pro palette ──────────────────────────────────────────────────────
+# #FF6188 pink  | #FC9867 orange | #FFD866 yellow
+# #A9DC76 green | #78DCE8 cyan   | #AB9DF2 purple
+# #272822 bg    | #FCFCFA fg     | #403E41 border
+
+gui:
+  nerdFontsVersion: "2"
+  border: "rounded"
+  theme:
+    activeBorderColor:
+      - "#A9DC76"
+      - bold
+    inactiveBorderColor:
+      - "#403E41"
+    searchingActiveBorderColor:
+      - "#FFD866"
+      - bold
+    optionsTextColor:
+      - "#78DCE8"
+    selectedLineBgColor:
+      - "#3a3a3a"
+    cherryPickedCommitBgColor:
+      - "#AB9DF2"
+    cherryPickedCommitFgColor:
+      - "#272822"
+    unstagedChangesColor:
+      - "#FF6188"
+    defaultFgColor:
+      - "#FCFCFA"
+    authorFgColor:
+      - "#FC9867"
+  customHeader: |2
+        .  *    .       .    *    .      *    . 
+      .    .  *    .  *    .    *   .  *    .  
+        .    ____......----````````----......____
+      *   ,-'   _______________________   `-.   
+         /    ,'    .           .    `.    \   
+        /   ,'   .    . * .  .    .    `.   \  
+       /  ,'   .   ,-----------,   .  .  `.  \ 
+      |  /    .  /   _________   \    .    \ |
+      | |    .  | ,-'  *  *  `-, |  .   .   ||
+      | |  .    ||  *  ( )  *  ||  .  *     ||
+      | |    .  | `-.______,-'  |    .   .  ||
+      |  \    .  \_____________/   .    .  / |
+       \  `.   .   `-----------'  .   .  ,'  /
+        \   `.    .    .  *  .  .    .  ,'   /
+         \    `.      .    .      .  ,'    /  
+      *   `-.   `------___________-----'  ,-'  
+        .    `````----....________....----'  .  
+      .    *    .    .       *    .    .   *    
+
+git:
+  commit:
+    signOff: false
+  merging:
+    manualCommit: false
+  branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
+
+keybinding:
+  universal:
+    quit: "q"
+    return: "<esc>"
+    scrollUpMain: "<pgup>"
+    scrollDownMain: "<pgdown>"
+  commits:
+    moveDownCommit: "<c-j>"
+    moveUpCommit: "<c-k>"
+
+os:
+  editPreset: vscode
