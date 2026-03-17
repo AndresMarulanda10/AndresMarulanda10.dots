@@ -114,6 +114,7 @@ CHOICES=$(gum choose --no-limit \
   "lazygit — config" \
   "aerospace — window manager" \
   "VS Code — settings y keybindings" \
+  "opencode — config y agentes" \
   "Todo — instalar todo")
 
 if [[ -z "$CHOICES" ]]; then
@@ -190,6 +191,12 @@ if should_run "VS Code"; then
     echo ""
     echo -e "  ${DIM}Recargá VS Code: Cmd+Shift+P → Reload Window${RESET}"
   fi
+fi
+
+# ─── Opencode ────────────────────────────────────────────────────────────────
+if should_run "opencode"; then
+  title "Opencode"
+  symlink "$DOTFILES_DIR/opencode/opencode.json" "$HOME/.config/opencode/opencode.json"
 fi
 
 # ─── Done ─────────────────────────────────────────────────────────────────────
