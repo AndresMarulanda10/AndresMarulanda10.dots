@@ -147,7 +147,7 @@ if should_run "zsh"; then
   symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
 
   ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-  symlink "$DOTFILES_DIR/zsh/andres.zsh-theme" "$ZSH_CUSTOM/themes/andres.zsh-theme"
+  symlink "$DOTFILES_DIR/zsh/andres.zsh-theme" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/andres.zsh-theme"
 
   ok "Recargá con: source ~/.zshrc"
 fi
@@ -155,7 +155,7 @@ fi
 # ─── git ──────────────────────────────────────────────────────────────────────
 if should_run "git"; then
   title "git"
-  symlink "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
+  symlink "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
 fi
 
 # ─── bat ──────────────────────────────────────────────────────────────────────
@@ -174,7 +174,7 @@ fi
 # ─── AeroSpace ────────────────────────────────────────────────────────────────
 if should_run "aerospace"; then
   title "AeroSpace"
-  symlink "$DOTFILES_DIR/.aerospace.toml" "$HOME/.aerospace.toml"
+  symlink "$DOTFILES_DIR/aerospace/.aerospace.toml" "$HOME/.aerospace.toml"
 fi
 
 # ─── VS Code ──────────────────────────────────────────────────────────────────

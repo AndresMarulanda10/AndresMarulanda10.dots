@@ -27,6 +27,7 @@ cask "insomnia"
 cask "opencode"
 cask "nikitabobko/tap/aerospace"  # Window manager — Solo macOS
 cask "homerow"                    # Keyboard navigation — Solo macOS
+cask "mole"                       # SSH tunnel manager — Solo macOS
 
 # ─── Fuentes ──────────────────────────────────────────────────────────────────
 tap "homebrew/cask-fonts"

@@ -4,13 +4,29 @@ My personal dotfiles — reproducible dev environment for macOS. Clone, run, cod
 
 ---
 
-## What's inside
+## Structure
 
-| File | Description |
-|------|-------------|
-| `Brewfile` | All tools and apps installed via Homebrew |
-| `zsh/.zshrc` | Zsh configuration |
-| `zsh/themes/andres.zsh-theme` | Custom prompt theme (Monokai Pro palette) |
+```
+.
+├── aerospace/          # AeroSpace window manager
+│   └── .aerospace.toml
+├── bat/                # bat (cat replacement)
+│   └── config
+├── git/                # Git config
+│   └── .gitconfig
+├── lazygit/            # Lazygit TUI config
+│   └── config.yml
+├── opencode/           # Opencode AI assistant
+│   └── opencode.json
+├── vscode/             # VS Code
+│   ├── settings.json
+│   └── keybindings.json
+├── zsh/                # Zsh + Oh My Zsh
+│   ├── .zshrc
+│   └── andres.zsh-theme
+├── Brewfile            # All packages and apps
+└── install.sh          # Interactive setup script
+```
 
 ---
 
@@ -29,34 +45,23 @@ git clone git@github.com:AndresMarulanda10/AndresMarulanda10.dots.git ~/Document
 cd ~/Documents/Projects/AMR/AndresMarulanda10.dots
 ```
 
-### 3. Install everything
+### 3. Run the installer
 
 ```bash
-brew bundle
+./install.sh
 ```
 
-### 4. Install Oh My Zsh
-
-```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-```
-
-### 5. Copy dotfiles
-
-```bash
-cp zsh/.zshrc ~/.zshrc
-cp zsh/themes/andres.zsh-theme ~/.oh-my-zsh/themes/andres.zsh-theme
-```
-
-### 6. Reload shell
-
-```bash
-source ~/.zshrc
-```
+The installer uses [Gum](https://github.com/charmbracelet/gum) for a TUI — lets you pick which modules to set up. It will install Gum automatically if missing.
 
 ---
 
 ## Post-install — Manual steps
+
+### Oh My Zsh
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+```
 
 ### Java
 
@@ -66,9 +71,14 @@ Homebrew installs `openjdk` but doesn't link it to the system automatically:
 sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 ```
 
-### OrbStack
+### VS Code
 
-OrbStack is **macOS only**. Skip this on Linux — use Docker Engine directly instead.
+After symlinking settings, reload VS Code to apply:
+
+```
+Cmd+Shift+P → Reload Window
+Cmd+Shift+P → Custom UI Style: Reload
+```
 
 ---
 
@@ -117,6 +127,7 @@ AndresMarulanda10  ~/…/path/to/project ❄ ⬡ v22.1.0 ·  main ✓
 ## Tools
 
 ### CLI
+
 | Tool | Description |
 |------|-------------|
 | `git` | Version control |
@@ -127,6 +138,7 @@ AndresMarulanda10  ~/…/path/to/project ❄ ⬡ v22.1.0 ·  main ✓
 | `eza` | Modern `ls` |
 
 ### Zsh plugins (Oh My Zsh)
+
 | Plugin | Description |
 |--------|-------------|
 | `git` | Git aliases |
@@ -138,15 +150,38 @@ AndresMarulanda10  ~/…/path/to/project ❄ ⬡ v22.1.0 ·  main ✓
 | `zsh-syntax-highlighting` | Colorizes valid/invalid commands |
 | `zsh-autosuggestions` | History-based suggestions |
 
-### Apps
+### Dev apps (via Brewfile)
+
 | App | Description |
 |-----|-------------|
 | VS Code | Editor |
 | OrbStack | Docker/Linux VMs (macOS only) |
 | Insomnia | API client |
-| OpenCode | AI coding assistant |
+| OpenCode | AI coding assistant (CLI) |
+| AeroSpace | Window manager (macOS only) |
+| Homerow | Keyboard navigation (macOS only) |
+| Mole | SSH tunnel manager (macOS only) |
+
+### Daily apps
+
+Apps I use daily — not in the Brewfile, install manually:
+
+| App | Notes |
+|-----|-------|
+| Notion | Notes and docs |
+| Notion Calendar | Calendar |
+| WhatsApp | Messaging |
+| Discord | Community |
+| Claude Desktop | AI assistant |
+| Figma | Design |
+| FocusPomo | Pomodoro timer |
+| MyWallpaper | Wallpaper manager |
+| Microsoft Excel | Spreadsheets |
+| Microsoft Word | Documents |
+| Raycast | Launcher (optional — replaces Spotlight) |
 
 ### Runtimes
+
 | Runtime | Description |
 |---------|-------------|
 | Node | Via Homebrew |
@@ -180,5 +215,5 @@ mkcd    → mkdir + cd in one command
 |----------|--------|
 | macOS (Apple Silicon) | ✅ Fully supported |
 | macOS (Intel) | ✅ Supported |
-| Linux | ⚠️ Skip OrbStack, adjust Homebrew path |
+| Linux | ⚠️ Skip OrbStack, AeroSpace, Homerow, Mole — adjust Homebrew path |
 | GitHub Codespaces | 🔜 Coming soon |
