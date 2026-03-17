@@ -144,6 +144,17 @@
     // Terminal completamente transparente (funciona con Vibrancy)
     "terminal.background": "#00000000",
     "panel.background": "#00000000",
+    // Evita que VS Code pinte fondo negro sobre secuencias ANSI del prompt
+    "terminal.selectionBackground": "#ffffff18",
+    "terminal.inactiveSelectionBackground": "#00000000",
+    // Sin ratio de contraste mínimo — VS Code por default modifica colores del terminal
+    // para "mejorar legibilidad" y eso genera fondos negros sobre el prompt
+    "terminal.integrated.minimumContrastRatio": 1,
+    // Override para Monokai — fuerza transparencia aunque el tema defina un fondo
+    "[Monokai]": {
+      "terminal.background": "#00000000",
+      "panel.background": "#00000000"
+    },
     // Override específico para el tema Aura Dracula Spirit (Soft)
     "[Aura Dracula Spirit (Soft)]": {
       "editorSuggestWidget.selectedBackground": "#3A334B",
