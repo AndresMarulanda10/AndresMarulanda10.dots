@@ -220,11 +220,39 @@ if should_run "Brewfile"; then
 fi
 
 # ─── zsh ─────────────────────────────────────────────────────────────────────
+# Verificar Oh My Zsh instalado
+if [ -d "${ZSH:-$HOME/.oh-my-zsh}" ]; then
+    warn "Oh My Zsh ya existe parcialmente. Eliminando para reinstalar desde cero..."
+    rm -rf "${ZSH:-$HOME/.oh-my-zsh}"
+fi
+if [ ! -d "${ZSH:-$HOME/.oh-my-zsh}" ]; then
+    title "Instalando Oh My Zsh"
+    if sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended; then
+    info "Oh My Zsh instalado correctamente"
+else
+    err "Falló la instalación de Oh My Zsh. Verificá el entorno."
+    exit 1
+fi
+    info "Oh My Zsh instalado"
+fi
+
 if should_run "zsh"; then
   title "zsh"
   symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
   symlink "$DOTFILES_DIR/zsh/andres.zsh-theme" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/andres.zsh-theme"
-  info "Recargá con: source ~/.zshrc"
+  info "Recargando configuración Zsh..."
+if [ -f "$HOME/.oh-my-zsh/oh-my-zsh.sh" ]; then
+    if [[ $SHELL =~ zsh ]]; then
+        source ~/.zshrc
+        ok "Configuración Zsh recargada con éxito."
+    else
+        warn "Zsh está correctamente configurado, pero ejecutá 'zsh' para cargar el entorno."
+    fi
+    ok "Configuración Zsh recargada con éxito."
+else
+    err "No se puede recargar Zsh: Oh My Zsh no se encuentra instalado."
+    exit 1
+fi
 fi
 
 # ─── git ─────────────────────────────────────────────────────────────────────
