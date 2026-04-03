@@ -2,7 +2,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="andres"
 
-plugins=(git command-not-found z web-search copypath copyfile)
+plugins=(command-not-found z web-search copypath copyfile)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -35,14 +35,6 @@ else
 fi
 
 # ─── Aliases ──────────────────────────────────────────────────────────────────
-
-# Git
-alias g='git'
-alias gs='git status'
-alias ga='git add'
-alias gc='git commit'
-alias gp='git push'
-alias gl='git log --oneline --graph --decorate'
 
 # Navegación
 alias proj='cd ~/Documents/Projects'
