@@ -158,7 +158,6 @@ COMMON_OPTS=(
   "bat — config"
   "lazygit — config"
   "VS Code — settings y keybindings"
-  "opencode — config y agentes"
   "Todo — instalar todo"
 )
 
@@ -303,12 +302,6 @@ if should_run "VS Code"; then
     symlink "$DOTFILES_DIR/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
     info "Recargá VS Code: Cmd+Shift+P → Reload Window"
   fi
-fi
-
-# ─── Opencode ────────────────────────────────────────────────────────────────
-if should_run "opencode"; then
-  title "Opencode"
-  symlink "$DOTFILES_DIR/opencode/opencode.json" "$HOME/.config/opencode/opencode.json"
 fi
 
 # ─── Done ────────────────────────────────────────────────────────────────────
