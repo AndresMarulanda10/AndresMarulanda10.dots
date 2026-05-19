@@ -1,7 +1,6 @@
-# ─── Identidad ────────────────────────────────────────────────────────────────
-[user]
-	name  = Andres Marulanda
-	email = andresmarulanda1027@icloud.com
+# ─── Identidad local (fuera del repo) ────────────────────────────────────────
+[include]
+	path = ~/.gitconfig.local
 
 # ─── Editor ───────────────────────────────────────────────────────────────────
 [core]

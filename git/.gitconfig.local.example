@@ -1,0 +1,4 @@
+# Copiá este archivo a ~/.gitconfig.local y reemplazá los valores.
+[user]
+	name = Tu Nombre
+	email = tu-correo@ejemplo.com

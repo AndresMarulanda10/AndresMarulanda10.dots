@@ -1,34 +1,58 @@
 # ─── Taps ─────────────────────────────────────────────────────────────────────
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "Gentleman-Programming/tap"
+tap "gentleman-programming/tap"
+tap "gromgit/fuse"
 tap "nikitabobko/tap"
+tap "supabase/tap"
 
-# ─── CLI Tools ────────────────────────────────────────────────────────────────
-brew "git"
-brew "gh"                    # GitHub CLI
-brew "lazygit"               # Git TUI
+# ─── CLI Base ─────────────────────────────────────────────────────────────────
+brew "atuin"                 # Historial shell mejorado
 brew "bat"                   # cat con syntax highlighting
-brew "fd"                    # find moderno
+brew "bottom"                # Monitor de procesos
+brew "carapace"              # Autocompletado multi-shell
+brew "coreutils"             # Utilidades GNU
+brew "curl"                  # HTTP CLI
 brew "eza"                   # ls moderno
+brew "fastfetch"             # Resumen del sistema
+brew "fd"                    # find moderno
+brew "fzf"                   # Búsqueda difusa
+brew "gh"                    # GitHub CLI
+brew "git"                   # Git
+brew "gum"                   # UI para scripts shell
+brew "lazygit"               # Git TUI
+brew "mole"                  # Gestión de túneles SSH
+brew "neovim"                # Editor terminal
+brew "ripgrep"               # grep moderno
+brew "tree"                  # Árbol de directorios
+brew "zellij"                # Multiplexor terminal
+brew "zoxide"                # cd inteligente
 
-# ─── Zsh ──────────────────────────────────────────────────────────────────────
+# ─── Shell ────────────────────────────────────────────────────────────────────
+brew "powerlevel10k"         # Theme de zsh
+brew "zsh"                   # Shell principal
+brew "zsh-autocomplete"      # Autocompletado en tiempo real
+brew "zsh-autosuggestions"   # Sugerencias estilo fish
 brew "zsh-syntax-highlighting"
-brew "zsh-autosuggestions"
+
+# ─── Desarrollo e IA ──────────────────────────────────────────────────────────
+brew "gentleman-programming/tap/engram"
+brew "gentleman-programming/tap/gentle-ai"
+brew "gentleman-programming/tap/gga"
+brew "supabase/tap/supabase" # Supabase CLI
 
 # ─── Runtimes ─────────────────────────────────────────────────────────────────
-brew "node"
-brew "openjdk"               # Java — symlink manual requerido post-install
+brew "node"                  # Next.js, Astro, Node
+brew "openjdk"               # Java
+brew "gromgit/fuse/sshfs-mac"
 
-# ─── Apps ─────────────────────────────────────────────────────────────────────
+# ─── Apps macOS ───────────────────────────────────────────────────────────────
+cask "nikitabobko/tap/aerospace"
+cask "ghostty"
+cask "homerow"
+cask "macfuse"
+cask "orbstack"
+cask "tailscale-app"
 cask "visual-studio-code"
-cask "orbstack"              # Solo macOS — omitir en Linux
-cask "insomnia"
-cask "opencode"
-cask "nikitabobko/tap/aerospace"  # Window manager — Solo macOS
-cask "homerow"                    # Keyboard navigation — Solo macOS
-cask "mole"                       # SSH tunnel manager — Solo macOS
 
 # ─── Fuentes ──────────────────────────────────────────────────────────────────
-tap "homebrew/cask-fonts"
+cask "font-iosevka-term-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
