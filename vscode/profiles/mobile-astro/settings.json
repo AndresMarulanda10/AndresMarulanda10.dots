@@ -1,0 +1,16 @@
+{
+  // Ancrar: Astro + Flutter + Node + Figma.
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  // Astro/Node: formatter explícito fuera de la base global.
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Tailwind puede aparecer en Astro, pero queda acotado a perfiles web/mobile.
+  "tailwindCSS.colorDecorators": true,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindcss-intellisense.trace.server": "verbose",
+
+  // Emmet para Astro/HTML.
+  "emmet.triggerExpansionOnTab": true
+}

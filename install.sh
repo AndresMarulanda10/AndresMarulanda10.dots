@@ -157,7 +157,7 @@ COMMON_OPTS=(
   "git — .gitconfig"
   "bat — config"
   "lazygit — config"
-  "VS Code — settings y keybindings"
+  "VS Code — settings, keybindings y perfiles"
   "Todo — instalar todo"
 )
 
@@ -175,7 +175,7 @@ elif $IS_CODESPACES; then
     "git — .gitconfig"
     "bat — config"
     "lazygit — config"
-    "VS Code — settings y keybindings"
+    "VS Code — settings, keybindings y perfiles"
     "Todo — instalar todo"
   )
 else
@@ -298,9 +298,47 @@ if should_run "VS Code"; then
   if [[ ! -d "$VSCODE_DIR" ]]; then
     err "VS Code no está instalado o nunca se abrió"
   else
-    symlink "$DOTFILES_DIR/vscode/settings.json"    "$VSCODE_DIR/settings.json"
-    symlink "$DOTFILES_DIR/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
-    info "Recargá VS Code: Cmd+Shift+P → Reload Window"
+    gum style --foreground "#FFD866" --bold "¿Qué plantillas VS Code querés aplicar además de base?"
+    info "base se aplica siempre; podés no elegir plantillas extra."
+    info "Después podés guardar un alias local por proyecto (ej: Tokinm, Davivienda, Ancrar)."
+    echo ""
+
+    VSCODE_PROFILES=$(gum choose --no-limit \
+      --cursor-prefix "○ " \
+      --selected-prefix "● " \
+      --unselected-prefix "○ " \
+      --selected.foreground "#FFD866" \
+      --cursor.foreground "#FF6188" \
+      --height 8 \
+      "java-aws" \
+      "web-ts" \
+      "mobile-astro" \
+      "data-science" || true)
+
+    APPLY_ARGS=("base")
+
+    if [[ -z "$VSCODE_PROFILES" ]]; then
+      "$DOTFILES_DIR/vscode/apply-profile.sh" "${APPLY_ARGS[@]}"
+    else
+      # shellcheck disable=SC2206
+      SELECTED_PROFILES=($VSCODE_PROFILES)
+
+      for TEMPLATE in "${SELECTED_PROFILES[@]}"; do
+        echo ""
+        ALIAS=$(gum input \
+          --placeholder "Opcional: Tokinm / Davivienda / Ancrar" \
+          --prompt "Alias local para $TEMPLATE: ")
+
+        ALIAS="${ALIAS//:/-}"
+        if [[ -n "${ALIAS// }" ]]; then
+          APPLY_ARGS+=("$TEMPLATE:$ALIAS")
+        else
+          APPLY_ARGS+=("$TEMPLATE")
+        fi
+      done
+
+      "$DOTFILES_DIR/vscode/apply-profile.sh" "${APPLY_ARGS[@]}"
+    fi
   fi
 fi
 

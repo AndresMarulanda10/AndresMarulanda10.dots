@@ -16,9 +16,10 @@ My personal dotfiles — reproducible dev environment for macOS. Clone, run, cod
 │   └── .gitconfig
 ├── lazygit/            # Lazygit TUI config
 │   └── config.yml
-├── vscode/             # VS Code
-│   ├── settings.json
-│   └── keybindings.json
+├── vscode/             # VS Code versionable profiles
+│   ├── global/         # Base global limpia + keybindings mínimos
+│   ├── profiles/       # Plantillas genéricas por stack
+│   └── apply-profile.sh
 ├── zsh/                # Zsh + Oh My Zsh
 │   ├── .zshrc
 │   └── andres.zsh-theme
@@ -39,8 +40,8 @@ My personal dotfiles — reproducible dev environment for macOS. Clone, run, cod
 ### 2. Clone this repo
 
 ```bash
-git clone git@github.com:AndresMarulanda10/AndresMarulanda10.dots.git ~/Documents/Projects/AMR/AndresMarulanda10.dots
-cd ~/Documents/Projects/AMR/AndresMarulanda10.dots
+git clone git@github.com:AndresMarulanda10/AndresMarulanda10.dots.git ~/Documents/personal/AndresMarulanda10.dots
+cd ~/Documents/personal/AndresMarulanda10.dots
 ```
 
 ### 3. Run the installer
@@ -71,7 +72,61 @@ sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVir
 
 ### VS Code
 
-After symlinking settings, reload VS Code to apply:
+VS Code usa una estrategia versionable propia en Git, no exports `.code-profile`.
+
+La base global vive en:
+
+```text
+vscode/global/settings.json
+vscode/global/keybindings.json
+vscode/global/extensions.txt
+```
+
+No se versiona `mcp.json`: la configuración real local tiene MCPs/discovery, pero este repo mantiene VS Code limpio y solo conserva lo reproducible por archivos.
+
+Sí se versiona un `keybindings.json` mínimo porque el único cambio real que querés mantener es `Cmd+Shift+M` para abrir/cerrar la terminal.
+
+Las plantillas por stack viven en `vscode/profiles/`:
+
+| Profile | Stack |
+|---------|-------|
+| `java-aws` | Davivienda: Java, AWS, Angular |
+| `web-ts` | Next.js, Node, Supabase, Vercel |
+| `mobile-astro` | Ancrar: Astro, Flutter, Node, Figma |
+| `data-science` | Python, Jupyter |
+
+El repo mantiene nombres genéricos por seguridad. Cuando corrés `./install.sh`, la TUI te deja asignar aliases locales por proyecto (por ejemplo `Tokinm`, `Davivienda`, `Ancrar`) y los guarda fuera del repo en:
+
+```text
+~/.config/andresmarulanda10.dots/vscode-profile-aliases.json
+```
+
+Aplicar solo la base:
+
+```bash
+./vscode/apply-profile.sh base
+```
+
+Aplicar uno o varios perfiles específicos:
+
+```bash
+./vscode/apply-profile.sh web-ts
+./vscode/apply-profile.sh java-aws
+./vscode/apply-profile.sh mobile-astro
+./vscode/apply-profile.sh data-science
+./vscode/apply-profile.sh base web-ts data-science
+./vscode/apply-profile.sh base web-ts:Tokinm java-aws:Davivienda
+```
+
+El script combina `global/settings.json` + `profiles/<perfil>/settings.json` en orden, copia `global/keybindings.json` e instala extensiones desde `extensions.txt`. Desde `./install.sh`, al elegir VS Code, la TUI aplica `base` siempre y permite seleccionar plantillas extra.
+
+Si querés separar ventanas con perfiles nativos de VS Code, abrí el proyecto con:
+
+```bash
+code --profile "web-ts" /ruta/al/proyecto
+```
+
+Después de aplicar settings, reload VS Code:
 
 ```
 Cmd+Shift+P → Reload Window
@@ -154,11 +209,11 @@ AndresMarulanda10  ~/…/path/to/project ❄ ⬡ v22.1.0 ·  main ✓
 |-----|-------------|
 | VS Code | Editor |
 | OrbStack | Docker/Linux VMs (macOS only) |
-| Insomnia | API client |
-| OpenCode | AI coding assistant (CLI) |
 | AeroSpace | Window manager (macOS only) |
 | Homerow | Keyboard navigation (macOS only) |
 | Mole | SSH tunnel manager (macOS only) |
+| Ghostty | Terminal |
+| Tailscale | Private networking |
 
 ### Daily apps
 

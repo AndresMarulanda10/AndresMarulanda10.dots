@@ -1,0 +1,8 @@
+{
+  // Ciencia de datos: Python + Jupyter.
+  "python.analysis.typeCheckingMode": "strict",
+
+  // Jupyter
+  "jupyter.kernels.excludePythonEnvironments": ["venv"],
+  "jupyter.enableExtendedPythonKernelCompletions": true
+}

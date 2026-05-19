@@ -1,0 +1,12 @@
+{
+  // Davivienda: Java + AWS + Angular.
+  // Perfil con tooling empresarial, YAML y Angular fuera de la base global.
+  "redhat.telemetry.enabled": false,
+  "aws.telemetry": false,
+  "amazonQ.telemetry": false,
+  "aws.cloudformation.telemetry.enabled": true,
+
+  // Angular / TypeScript
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always"
+}
