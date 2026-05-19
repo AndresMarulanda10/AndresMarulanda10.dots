@@ -1,0 +1,6 @@
+# Ciencia de datos: Python + Jupyter.
+# No aparecieron instaladas en `code --list-extensions`, quedan declaradas
+# como recomendación versionable del perfil.
+ms-python.python
+ms-python.vscode-pylance
+ms-toolsai.jupyter

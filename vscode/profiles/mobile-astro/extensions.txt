@@ -1,0 +1,10 @@
+# Ancrar: Astro + Flutter + Node + Figma
+astro-build.astro-vscode
+bradlc.vscode-tailwindcss
+esbenp.prettier-vscode
+figma.figma-vscode-extension
+wix.vscode-import-cost
+
+# Opcionales no instaladas actualmente: Flutter/Dart.
+# dart-code.dart-code
+# dart-code.flutter

@@ -1,0 +1,5 @@
+# Next.js + Node + Supabase + Vercel
+bradlc.vscode-tailwindcss
+biomejs.biome
+esbenp.prettier-vscode
+wix.vscode-import-cost

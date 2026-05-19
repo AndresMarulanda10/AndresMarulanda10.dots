@@ -1,0 +1,14 @@
+# Global UI/productividad compartida
+aaron-bond.better-comments
+be5invis.vscode-custom-css
+brandonkirbyson.vscode-animations
+github.copilot-chat
+github.vscode-pull-request-github
+illixion.vscode-vibrancy-continued
+jdinhlife.gruvbox
+ms-vscode-remote.remote-ssh
+ms-vscode-remote.remote-ssh-edit
+ms-vscode.remote-explorer
+pkief.material-icon-theme
+redhat.vscode-yaml
+usernamehw.errorlens

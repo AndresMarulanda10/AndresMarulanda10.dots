@@ -1,0 +1,11 @@
+// Keybindings globales realmente activos
+[
+  {
+    "key": "shift+cmd+m",
+    "command": "-workbench.actions.view.problems"
+  },
+  {
+    "key": "shift+cmd+m",
+    "command": "workbench.action.terminal.toggleTerminal"
+  }
+]

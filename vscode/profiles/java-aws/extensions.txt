@@ -1,0 +1,9 @@
+# Davivienda: Java + AWS + Angular
+angular.ng-template
+redhat.java
+redhat.vscode-microprofile
+redhat.vscode-quarkus
+vscjava.vscode-java-debug
+
+# Opcional no instalado actualmente: AWS Toolkit.
+# amazonwebservices.aws-toolkit-vscode
