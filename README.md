@@ -16,8 +16,6 @@ My personal dotfiles — reproducible dev environment for macOS. Clone, run, cod
 │   └── .gitconfig
 ├── lazygit/            # Lazygit TUI config
 │   └── config.yml
-├── opencode/           # Opencode AI assistant
-│   └── opencode.json
 ├── vscode/             # VS Code
 │   ├── settings.json
 │   └── keybindings.json
