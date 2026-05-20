@@ -1,272 +1,162 @@
 # AndresMarulanda10.dots
 
-My personal dotfiles — reproducible dev environment for macOS. Clone, run, code.
+Mis dotfiles personales para reconstruir una Mac real después de formatear.
+
+La estrategia principal ahora es **copy-based**: el instalador copia configs a las rutas normales del sistema y hace backup con timestamp si ya existe algo. No deja las configs instaladas dependiendo de symlinks al repo.
 
 ---
 
-## Structure
+## Estructura
 
-```
+```text
 .
 ├── aerospace/          # AeroSpace window manager
-│   └── .aerospace.toml
-├── bat/                # bat (cat replacement)
-│   └── config
-├── git/                # Git config
-│   └── .gitconfig
-├── lazygit/            # Lazygit TUI config
-│   └── config.yml
-├── vscode/             # VS Code versionable profiles
-│   ├── global/         # Base global limpia + keybindings mínimos
-│   ├── profiles/       # Plantillas genéricas por stack
-│   └── apply-profile.sh
-├── zsh/                # Zsh + Oh My Zsh
-│   ├── .zshrc
-│   └── andres.zsh-theme
-├── Brewfile            # All packages and apps
-└── install.sh          # Interactive setup script
+├── atuin/              # Config versionable de Atuin
+├── bat/                # bat
+├── fastfetch/          # Config + logo usado al abrir terminal
+├── ghostty/            # Config + shader usado por Ghostty
+├── git/                # .gitconfig base; identidad local fuera del repo
+├── lazygit/            # Lazygit
+├── vscode/             # Settings/perfiles aplicados por script propio
+├── zsh/                # .zprofile, .zshrc y theme andres
+├── Brewfile
+└── install.sh
 ```
 
 ---
 
-## Quick start
+## Instalación
 
-### 1. Install Homebrew
+### 1. Instalar Homebrew
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### 2. Clone this repo
+### 2. Clonar el repo
 
 ```bash
 git clone git@github.com:AndresMarulanda10/AndresMarulanda10.dots.git ~/Documents/personal/AndresMarulanda10.dots
 cd ~/Documents/personal/AndresMarulanda10.dots
 ```
 
-### 3. Run the installer
+### 3. Ejecutar instalador
 
 ```bash
 ./install.sh
 ```
 
-The installer uses [Gum](https://github.com/charmbracelet/gum) for a TUI — lets you pick which modules to set up. It will install Gum automatically if missing.
+El instalador usa [Gum](https://github.com/charmbracelet/gum) para elegir módulos. Si Gum no está, lo instala con Homebrew.
+
+Cuando copiás una config y el destino ya existe, se mueve a:
+
+```text
+archivo.backup.YYYYMMDDHHMMSS
+```
 
 ---
 
-## Post-install — Manual steps
+## Módulos incluidos
 
-### Oh My Zsh
+| Módulo | Destino |
+|--------|---------|
+| `zsh` | `~/.zprofile`, `~/.zshrc`, theme en Oh My Zsh |
+| `git` | `~/.gitconfig` + genera `~/.gitconfig.local` |
+| `bat` | `~/.config/bat/config` |
+| `lazygit` | macOS: `~/Library/Application Support/lazygit/config.yml`; Linux: `~/.config/lazygit/config.yml` |
+| `ghostty` | `~/.config/ghostty` |
+| `atuin` | `~/.config/atuin/config.toml` |
+| `fastfetch` | `~/.config/fastfetch` |
+| `aerospace` | `~/.aerospace.toml` |
+| `VS Code` | Aplica settings reales con `vscode/apply-profile.sh` |
 
-```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+---
+
+## Git local
+
+`git/.gitconfig` incluye:
+
+```ini
+[include]
+    path = ~/.gitconfig.local
 ```
 
-### Java
-
-Homebrew installs `openjdk` but doesn't link it to the system automatically:
-
-```bash
-sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
-```
-
-### VS Code
-
-VS Code usa una estrategia versionable propia en Git, no exports `.code-profile`.
-
-La base global vive en:
+Al instalar `git`, la TUI pide nombre y email y genera:
 
 ```text
-vscode/global/settings.json
-vscode/global/keybindings.json
-vscode/global/extensions.txt
+~/.gitconfig.local
 ```
 
-No se versiona `mcp.json`: la configuración real local tiene MCPs/discovery, pero este repo mantiene VS Code limpio y solo conserva lo reproducible por archivos.
+Si ya existe, pregunta antes de reemplazarlo y crea backup. Ese archivo NO se versiona porque es identidad local de la máquina.
 
-Sí se versiona un `keybindings.json` mínimo porque el único cambio real que querés mantener es `Cmd+Shift+M` para abrir/cerrar la terminal.
+---
 
-Las plantillas por stack viven en `vscode/profiles/`:
+## Zsh
+
+Se versionan:
+
+- `zsh/.zprofile`: Homebrew shellenv + integración OrbStack protegida.
+- `zsh/.zshrc`: Oh My Zsh con theme `andres`, aliases, Atuin y Fastfetch.
+- `zsh/andres.zsh-theme`: prompt actual.
+
+Detalles importantes:
+
+- Homebrew se inicializa en `.zprofile`, no dos veces en `.zshrc`.
+- Atuin se activa solo si `atuin` existe.
+- Fastfetch se muestra en shells interactivos, una vez por sesión, y no en CI.
+- Plugins externos se sourcean solo si el archivo existe.
+- Zellij queda fuera por ahora: no se asume auto-start.
+
+---
+
+## VS Code
+
+VS Code mantiene estrategia propia: `vscode/apply-profile.sh` combina settings versionables y escribe archivos reales en la config de VS Code. No usa symlink.
+
+Plantillas disponibles:
 
 | Profile | Stack |
 |---------|-------|
-| `java-aws` | Davivienda: Java, AWS, Angular |
+| `java-aws` | Java, AWS, Angular |
 | `web-ts` | Next.js, Node, Supabase, Vercel |
-| `mobile-astro` | Ancrar: Astro, Flutter, Node, Figma |
+| `mobile-astro` | Astro, Flutter, Node, Figma |
 | `data-science` | Python, Jupyter |
 
-El repo mantiene nombres genéricos por seguridad. Cuando corrés `./install.sh`, la TUI te deja asignar aliases locales por proyecto (por ejemplo `Tokinm`, `Davivienda`, `Ancrar`) y los guarda fuera del repo en:
-
-```text
-~/.config/andresmarulanda10.dots/vscode-profile-aliases.json
-```
-
-Aplicar solo la base:
+Ejemplos:
 
 ```bash
 ./vscode/apply-profile.sh base
-```
-
-Aplicar uno o varios perfiles específicos:
-
-```bash
-./vscode/apply-profile.sh web-ts
-./vscode/apply-profile.sh java-aws
-./vscode/apply-profile.sh mobile-astro
-./vscode/apply-profile.sh data-science
-./vscode/apply-profile.sh base web-ts data-science
-./vscode/apply-profile.sh base web-ts:Tokinm java-aws:Davivienda
-```
-
-El script combina `global/settings.json` + `profiles/<perfil>/settings.json` en orden, copia `global/keybindings.json` e instala extensiones desde `extensions.txt`. Desde `./install.sh`, al elegir VS Code, la TUI aplica `base` siempre y permite seleccionar plantillas extra.
-
-Si querés separar ventanas con perfiles nativos de VS Code, abrí el proyecto con:
-
-```bash
-code --profile "web-ts" /ruta/al/proyecto
-```
-
-Después de aplicar settings, reload VS Code:
-
-```
-Cmd+Shift+P → Reload Window
-Cmd+Shift+P → Custom UI Style: Reload
+./vscode/apply-profile.sh base web-ts java-aws:Davivienda
 ```
 
 ---
 
-## Prompt (andres.zsh-theme)
+## Seguridad / manual
 
-Custom theme built on the Monokai Pro palette:
+Queda intencionalmente fuera:
 
-```
-AndresMarulanda10  ~/…/path/to/project ❄ ⬡ v22.1.0 ·  main ✓
-❯
-```
+- **SSH config**: manual y no versionable por seguridad.
+- **Neovim**: no se usa en esta fase.
+- **Config completa de opencode**: queda fuera. Si necesitás un theme puntual, aplicalo manualmente fuera del repo.
+- **Zellij auto-start**: fuera por ahora para no cambiar comportamiento de shell sin decisión explícita.
 
-| Element | Color | Style |
-|---------|-------|-------|
-| Username | `#FFD866` yellow | Bold |
-| Path | `#FC9867` orange | Italic |
-| Runtime version | varies | Bold |
-| Branch | `#78DCE8` cyan | Bold + Italic |
-| `❄` separator | `#FCFCFA` white | — |
-| `·` separator | `#AB9DF2` purple | — |
-| `❯` cursor | `#FF6188` pink | — |
-
-**Runtime detection** — shows automatically based on project files:
-
-| Runtime | Trigger file | Color |
-|---------|-------------|-------|
-| ⬡ Node | `package.json` | `#A9DC76` green |
-| Ⓐ Angular | `angular.json` | `#FF6188` pink |
-| ☕ Java | `pom.xml` / `build.gradle` | `#FFD866` yellow |
-
-**Git status indicators:**
-
-| Symbol | Meaning |
-|--------|---------|
-| `✓` | Clean |
-| `⚡` | Dirty |
-| `!` | Ahead of remote |
-| `✚` | Added |
-| `✹` | Modified |
-| `✖` | Deleted |
-| `➜` | Renamed |
-| `✭` | Untracked |
+Tailscale ya está cubierto por `Brewfile` con `tailscale-app`; no necesita configuración especial en esta fase.
 
 ---
 
-## Tools
+## Trabajo futuro
 
-### CLI
+Por ahora el flujo es repo → sistema. No hay sincronización automática sistema → repo.
 
-| Tool | Description |
-|------|-------------|
-| `git` | Version control |
-| `gh` | GitHub CLI |
-| `lazygit` | Git TUI |
-| `bat` | `cat` with syntax highlighting |
-| `fd` | Modern `find` |
-| `eza` | Modern `ls` |
-
-### Zsh plugins (Oh My Zsh)
-
-| Plugin | Description |
-|--------|-------------|
-| `git` | Git aliases |
-| `z` | Smart directory jumping |
-| `web-search` | Search from terminal |
-| `copypath` | Copy current path to clipboard |
-| `copyfile` | Copy file contents to clipboard |
-| `command-not-found` | Suggests install when command is missing |
-| `zsh-syntax-highlighting` | Colorizes valid/invalid commands |
-| `zsh-autosuggestions` | History-based suggestions |
-
-### Dev apps (via Brewfile)
-
-| App | Description |
-|-----|-------------|
-| VS Code | Editor |
-| OrbStack | Docker/Linux VMs (macOS only) |
-| AeroSpace | Window manager (macOS only) |
-| Homerow | Keyboard navigation (macOS only) |
-| Mole | SSH tunnel manager (macOS only) |
-| Ghostty | Terminal |
-| Tailscale | Private networking |
-
-### Daily apps
-
-Apps I use daily — not in the Brewfile, install manually:
-
-| App | Notes |
-|-----|-------|
-| Notion | Notes and docs |
-| Notion Calendar | Calendar |
-| WhatsApp | Messaging |
-| Discord | Community |
-| Claude Desktop | AI assistant |
-| Figma | Design |
-| FocusPomo | Pomodoro timer |
-| MyWallpaper | Wallpaper manager |
-| Microsoft Excel | Spreadsheets |
-| Microsoft Word | Documents |
-| Raycast | Launcher (optional — replaces Spotlight) |
-
-### Runtimes
-
-| Runtime | Description |
-|---------|-------------|
-| Node | Via Homebrew |
-| OpenJDK | Via Homebrew (manual symlink required) |
+Si en el futuro hace falta capturar cambios locales, conviene implementar un comando explícito de sync/reconcile con diff y allowlist. No hacerlo a medias: copiar configs locales sin revisar es una receta para versionar basura o secretos, y eso NO.
 
 ---
 
-## Aliases
-
-```zsh
-# Git
-g       → git
-gs      → git status
-ga      → git add
-gc      → git commit
-gp      → git push
-gl      → git log --oneline --graph --decorate
-
-# Navigation
-proj    → cd ~/Documents/Projects
-
-# Utils
-mkcd    → mkdir + cd in one command
-```
-
----
-
-## Platforms
+## Plataformas
 
 | Platform | Status |
 |----------|--------|
-| macOS (Apple Silicon) | ✅ Fully supported |
-| macOS (Intel) | ✅ Supported |
-| Linux | ⚠️ Skip OrbStack, AeroSpace, Homerow, Mole — adjust Homebrew path |
-| GitHub Codespaces | 🔜 Coming soon |
+| macOS Apple Silicon | ✅ Principal |
+| macOS Intel | ✅ Soportado |
+| Linux | ⚠️ Parcial; se omiten apps macOS-only |
+| GitHub Codespaces | ⚠️ Básico: zsh, git, bat, lazygit, VS Code |

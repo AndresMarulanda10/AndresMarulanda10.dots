@@ -20,7 +20,6 @@ brew "git"                   # Git
 brew "gum"                   # UI para scripts shell
 brew "lazygit"               # Git TUI
 brew "mole"                  # Gestión de túneles SSH
-brew "neovim"                # Editor terminal
 brew "ripgrep"               # grep moderno
 brew "tree"                  # Árbol de directorios
 brew "zellij"                # Multiplexor terminal
