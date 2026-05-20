@@ -35,8 +35,10 @@ La estrategia principal ahora es **copy-based**: el instalador copia configs a l
 
 ### 2. Clonar el repo
 
+Primero clonalo por HTTPS. Después, cuando ya tengas SSH configurado en la máquina, podés cambiar el remote a SSH.
+
 ```bash
-git clone git@github.com:AndresMarulanda10/AndresMarulanda10.dots.git ~/Documents/personal/AndresMarulanda10.dots
+git clone https://github.com/AndresMarulanda10/AndresMarulanda10.dots.git ~/Documents/personal/AndresMarulanda10.dots
 cd ~/Documents/personal/AndresMarulanda10.dots
 ```
 
@@ -136,9 +138,12 @@ Ejemplos:
 Queda intencionalmente fuera:
 
 - **SSH config**: manual y no versionable por seguridad.
+- **Claves SSH**: generarlas manualmente después del setup y recién ahí cambiar remotes a SSH.
 - **Neovim**: no se usa en esta fase.
 - **Config completa de opencode**: queda fuera. Si necesitás un theme puntual, aplicalo manualmente fuera del repo.
 - **Zellij auto-start**: fuera por ahora para no cambiar comportamiento de shell sin decisión explícita.
+- **Login en apps**: Tailscale, GitHub/Copilot, OrbStack y cualquier app personal siguen siendo manuales.
+- **Permisos de macOS**: Accesibilidad / Full Disk Access para apps como AeroSpace o Ghostty siguen siendo manuales.
 
 Tailscale ya está cubierto por `Brewfile` con `tailscale-app`; no necesita configuración especial en esta fase.
 
@@ -149,6 +154,8 @@ Tailscale ya está cubierto por `Brewfile` con `tailscale-app`; no necesita conf
 Por ahora el flujo es repo → sistema. No hay sincronización automática sistema → repo.
 
 Si en el futuro hace falta capturar cambios locales, conviene implementar un comando explícito de sync/reconcile con diff y allowlist. No hacerlo a medias: copiar configs locales sin revisar es una receta para versionar basura o secretos, y eso NO.
+
+También existe `POST_FORMAT_CHECKLIST.md` como guía operativa para reconstruir la Mac paso a paso.
 
 ---
 
