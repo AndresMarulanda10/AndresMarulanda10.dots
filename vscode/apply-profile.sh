@@ -87,6 +87,15 @@ install_extensions() {
   done < "$file"
 }
 
+prepare_managed_file_target() {
+  local file="$1"
+
+  # The repo uses copy-based installs, so remove stale symlinks before writing.
+  if [[ -L "$file" ]]; then
+    rm -f "$file"
+  fi
+}
+
 merge_settings() {
   local global_settings="$1"
   local profile_settings="${2:-}"
@@ -204,6 +213,7 @@ main() {
 
   mkdir -p "$VSCODE_DIR"
   if [[ -f "$global_dir/keybindings.json" ]]; then
+    prepare_managed_file_target "$VSCODE_DIR/keybindings.json"
     cp "$global_dir/keybindings.json" "$VSCODE_DIR/keybindings.json"
   fi
 
@@ -212,6 +222,7 @@ main() {
   local next_settings=""
 
   if [[ "${#profile_settings[@]}" -eq 0 ]]; then
+    prepare_managed_file_target "$VSCODE_DIR/settings.json"
     merge_settings "$global_dir/settings.json" "" "$VSCODE_DIR/settings.json"
   else
     tmp_settings="$(mktemp)"
@@ -227,6 +238,7 @@ main() {
       i=$((i + 1))
     done
 
+    prepare_managed_file_target "$VSCODE_DIR/settings.json"
     cp "$current_settings" "$VSCODE_DIR/settings.json"
     rm -f "$current_settings"
   fi
@@ -236,7 +248,9 @@ main() {
     install_extensions "$profile_extensions_file"
   done
 
-  save_aliases "${alias_pairs[@]}"
+  if [[ "${#alias_pairs[@]}" -gt 0 ]]; then
+    save_aliases "${alias_pairs[@]}"
+  fi
 
   if [[ "${#applied_profiles[@]}" -eq 0 ]]; then
     echo "✓ VS Code aplicado: base"
