@@ -4,7 +4,7 @@
 # Requisito: Homebrew instalado
 # ─────────────────────────────────────────────────────────────────────────────
 
-set -e
+set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -104,6 +104,7 @@ write_gitconfig_local() {
 [user]
 	name = $git_name
 	email = $git_email
+	useConfigOnly = true
 EOF
 
   chmod 600 "$dst"
@@ -235,7 +236,7 @@ CHOICES=$(gum choose --no-limit \
   --selected.foreground "#FFD866" \
   --cursor.foreground "#FF6188" \
   --height 12 \
-  "${ALL_OPTS[@]}")
+  "${ALL_OPTS[@]}" || true)
 
 if [[ -z "$CHOICES" ]]; then
   echo -e "${DIM}  Sin selección. Saliendo.${RESET}"

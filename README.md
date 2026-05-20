@@ -27,6 +27,8 @@ La estrategia principal ahora es **copy-based**: el instalador copia configs a l
 
 ## Instalación
 
+Antes de correr cualquier cosa, revisá `Brewfile`, `install.sh` y los módulos que vas a instalar. Este repo instala software de terceros y ejecuta scripts remotos estándar del ecosistema macOS; usalo solo en máquinas tuyas y con criterio.
+
 ### 1. Instalar Homebrew
 
 ```bash
@@ -134,6 +136,8 @@ Ejemplos:
 ---
 
 ## Seguridad / manual
+
+Para más detalles, ver `SECURITY.md`.
 
 Queda intencionalmente fuera:
 
