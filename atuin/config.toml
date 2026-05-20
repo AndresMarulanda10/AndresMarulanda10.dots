@@ -1,0 +1,7 @@
+# Atuin config versionable.
+# No guarda secretos: datos, keys y sesiones quedan en ~/.local/share/atuin.
+
+enter_accept = true
+
+[sync]
+records = true

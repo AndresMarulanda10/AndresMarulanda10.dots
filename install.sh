@@ -48,23 +48,66 @@ err()  { echo -e "${PINK}  ✗${RESET} ${FG}$1${RESET}"; }
 warn() { echo -e "${ORANGE}  ⚠${RESET} ${DIM}$1${RESET}"; }
 info() { echo -e "${DIM}    $1${RESET}"; }
 
-# symlink $src $dst
-symlink() {
+# copy_config $src $dst
+copy_config() {
   local src="$1" dst="$2"
-  mkdir -p "$(dirname "$dst")"
+  local backup
 
-  if [[ -L "$dst" && "$(readlink "$dst")" == "$src" ]]; then
-    skip "$(basename "$dst")"; return
+  if [[ ! -e "$src" ]]; then
+    err "No existe el origen: $src"
+    return 1
   fi
 
-  if [[ -e "$dst" && ! -L "$dst" ]]; then
-    local backup="${dst}.backup.$(date +%Y%m%d%H%M%S)"
+  mkdir -p "$(dirname "$dst")"
+
+  if [[ -e "$dst" || -L "$dst" ]]; then
+    backup="${dst}.backup.$(date +%Y%m%d%H%M%S)"
     mv "$dst" "$backup"
     warn "Backup: $backup"
   fi
 
-  ln -sf "$src" "$dst"
+  if [[ -d "$src" ]]; then
+    cp -R "$src" "$dst"
+  else
+    cp "$src" "$dst"
+  fi
+
   ok "$(basename "$dst")"
+}
+
+write_gitconfig_local() {
+  local dst="$HOME/.gitconfig.local"
+  local backup git_name git_email
+
+  if [[ -e "$dst" ]]; then
+    warn "$dst ya existe"
+
+    if gum confirm "¿Querés reemplazar ~/.gitconfig.local? Se va a crear backup."; then
+      backup="${dst}.backup.$(date +%Y%m%d%H%M%S)"
+      mv "$dst" "$backup"
+      warn "Backup: $backup"
+    else
+      skip ".gitconfig.local"
+      return
+    fi
+  fi
+
+  git_name=$(gum input --placeholder "Tu nombre" --prompt "Nombre Git: ")
+  git_email=$(gum input --placeholder "tu@email.com" --prompt "Email Git: ")
+
+  if [[ -z "${git_name// }" || -z "${git_email// }" ]]; then
+    warn "Nombre o email vacío; no se generó ~/.gitconfig.local"
+    return
+  fi
+
+  cat > "$dst" <<EOF
+[user]
+	name = $git_name
+	email = $git_email
+EOF
+
+  chmod 600 "$dst"
+  ok ".gitconfig.local"
 }
 
 should_run() {
@@ -157,6 +200,9 @@ COMMON_OPTS=(
   "git — .gitconfig"
   "bat — config"
   "lazygit — config"
+  "ghostty — terminal"
+  "atuin — historial shell"
+  "fastfetch — resumen terminal"
   "VS Code — settings, keybindings y perfiles"
   "Todo — instalar todo"
 )
@@ -168,7 +214,7 @@ MAC_OPTS=(
 
 # Armar lista según OS
 if $IS_MAC; then
-  ALL_OPTS=("${COMMON_OPTS[@]:0:5}" "${MAC_OPTS[@]}" "${COMMON_OPTS[@]:5}")
+  ALL_OPTS=("${COMMON_OPTS[@]:0:8}" "${MAC_OPTS[@]}" "${COMMON_OPTS[@]:8}")
 elif $IS_CODESPACES; then
   ALL_OPTS=(
     "zsh — config y theme"
@@ -219,51 +265,36 @@ if should_run "Brewfile"; then
 fi
 
 # ─── zsh ─────────────────────────────────────────────────────────────────────
-# Verificar Oh My Zsh instalado
-if [ -d "${ZSH:-$HOME/.oh-my-zsh}" ]; then
-    warn "Oh My Zsh ya existe parcialmente. Eliminando para reinstalar desde cero..."
-    rm -rf "${ZSH:-$HOME/.oh-my-zsh}"
-fi
-if [ ! -d "${ZSH:-$HOME/.oh-my-zsh}" ]; then
-    title "Instalando Oh My Zsh"
-    if sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended; then
-    info "Oh My Zsh instalado correctamente"
-else
-    err "Falló la instalación de Oh My Zsh. Verificá el entorno."
-    exit 1
-fi
-    info "Oh My Zsh instalado"
-fi
-
 if should_run "zsh"; then
   title "zsh"
-  symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
-  symlink "$DOTFILES_DIR/zsh/andres.zsh-theme" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/andres.zsh-theme"
-  info "Recargando configuración Zsh..."
-if [ -f "$HOME/.oh-my-zsh/oh-my-zsh.sh" ]; then
-    if [[ $SHELL =~ zsh ]]; then
-        source ~/.zshrc
-        ok "Configuración Zsh recargada con éxito."
+
+  if [[ ! -d "${ZSH:-$HOME/.oh-my-zsh}" ]]; then
+    title "Instalando Oh My Zsh"
+    if sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended; then
+      info "Oh My Zsh instalado correctamente"
     else
-        warn "Zsh está correctamente configurado, pero ejecutá 'zsh' para cargar el entorno."
+      err "Falló la instalación de Oh My Zsh. Verificá el entorno."
+      exit 1
     fi
-    ok "Configuración Zsh recargada con éxito."
-else
-    err "No se puede recargar Zsh: Oh My Zsh no se encuentra instalado."
-    exit 1
-fi
+  fi
+
+  copy_config "$DOTFILES_DIR/zsh/.zprofile" "$HOME/.zprofile"
+  copy_config "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
+  copy_config "$DOTFILES_DIR/zsh/andres.zsh-theme" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/andres.zsh-theme"
+  warn "Abrí una terminal nueva para cargar la configuración."
 fi
 
 # ─── git ─────────────────────────────────────────────────────────────────────
 if should_run "git"; then
   title "git"
-  symlink "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+  copy_config "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+  write_gitconfig_local
 fi
 
 # ─── bat ─────────────────────────────────────────────────────────────────────
 if should_run "bat"; then
   title "bat"
-  symlink "$DOTFILES_DIR/bat/config" "$HOME/.config/bat/config"
+  copy_config "$DOTFILES_DIR/bat/config" "$HOME/.config/bat/config"
 fi
 
 # ─── lazygit ─────────────────────────────────────────────────────────────────
@@ -276,13 +307,31 @@ if should_run "lazygit"; then
     LAZYGIT_DIR="$HOME/.config/lazygit"
   fi
 
-  symlink "$DOTFILES_DIR/lazygit/config.yml" "$LAZYGIT_DIR/config.yml"
+  copy_config "$DOTFILES_DIR/lazygit/config.yml" "$LAZYGIT_DIR/config.yml"
+fi
+
+# ─── Ghostty ─────────────────────────────────────────────────────────────────
+if should_run "ghostty"; then
+  title "Ghostty"
+  copy_config "$DOTFILES_DIR/ghostty" "$HOME/.config/ghostty"
+fi
+
+# ─── Atuin ───────────────────────────────────────────────────────────────────
+if should_run "atuin"; then
+  title "Atuin"
+  copy_config "$DOTFILES_DIR/atuin/config.toml" "$HOME/.config/atuin/config.toml"
+fi
+
+# ─── Fastfetch ────────────────────────────────────────────────────────────────
+if should_run "fastfetch"; then
+  title "Fastfetch"
+  copy_config "$DOTFILES_DIR/fastfetch" "$HOME/.config/fastfetch"
 fi
 
 # ─── AeroSpace (macOS only) ───────────────────────────────────────────────────
 if $IS_MAC && should_run "aerospace"; then
   title "AeroSpace"
-  symlink "$DOTFILES_DIR/aerospace/.aerospace.toml" "$HOME/.aerospace.toml"
+  copy_config "$DOTFILES_DIR/aerospace/.aerospace.toml" "$HOME/.aerospace.toml"
 fi
 
 # ─── VS Code ─────────────────────────────────────────────────────────────────

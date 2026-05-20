@@ -4,13 +4,8 @@ ZSH_THEME="andres"
 
 plugins=(command-not-found z web-search copypath copyfile)
 
-source $ZSH/oh-my-zsh.sh
-
-# ─── Homebrew ─────────────────────────────────────────────────────────────────
-if [[ -f "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [[ -f "/usr/local/bin/brew" ]]; then
-    eval "$(/usr/local/bin/brew shellenv)"
+if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
+    source "$ZSH/oh-my-zsh.sh"
 fi
 
 # ─── Editor ───────────────────────────────────────────────────────────────────
@@ -18,9 +13,26 @@ export EDITOR="code --wait"
 export VISUAL="code --wait"
 
 # ─── Plugins ──────────────────────────────────────────────────────────────────
-BREW_PREFIX="$(brew --prefix)"
-source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if command -v brew &>/dev/null; then
+    BREW_PREFIX="$(brew --prefix)"
+
+    ZSH_SYNTAX_HIGHLIGHTING="$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    ZSH_AUTOSUGGESTIONS="$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+    [[ -f "$ZSH_SYNTAX_HIGHLIGHTING" ]] && source "$ZSH_SYNTAX_HIGHLIGHTING"
+    [[ -f "$ZSH_AUTOSUGGESTIONS" ]] && source "$ZSH_AUTOSUGGESTIONS"
+fi
+
+# ─── Atuin ────────────────────────────────────────────────────────────────────
+if command -v atuin &>/dev/null; then
+    eval "$(atuin init zsh)"
+fi
+
+# ─── Fastfetch ────────────────────────────────────────────────────────────────
+if [[ -o interactive && -z "$FASTFETCH_SHOWN" && -z "$VSCODE_INJECTION" && -z "$CI" ]]; then
+    export FASTFETCH_SHOWN=1
+    command -v fastfetch &>/dev/null && fastfetch
+fi
 
 # ─── eza (ls moderno) ─────────────────────────────────────────────────────────
 if command -v eza &>/dev/null; then
