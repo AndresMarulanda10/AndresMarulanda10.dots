@@ -1,6 +1,5 @@
 # ─── Taps ─────────────────────────────────────────────────────────────────────
 tap "gentleman-programming/tap"
-tap "gromgit/fuse"
 tap "nikitabobko/tap"
 tap "supabase/tap"
 
@@ -41,13 +40,11 @@ brew "supabase/tap/supabase" # Supabase CLI
 # ─── Runtimes ─────────────────────────────────────────────────────────────────
 brew "node"                  # Next.js, Astro, Node
 brew "openjdk"               # Java
-brew "gromgit/fuse/sshfs-mac"
 
 # ─── Apps macOS ───────────────────────────────────────────────────────────────
 cask "nikitabobko/tap/aerospace"
 cask "ghostty"
 cask "homerow"
-cask "macfuse"
 cask "orbstack"
 cask "tailscale-app"
 cask "visual-studio-code"

@@ -139,6 +139,7 @@ Queda intencionalmente fuera:
 
 - **SSH config**: manual y no versionable por seguridad.
 - **Claves SSH**: generarlas manualmente después del setup y recién ahí cambiar remotes a SSH.
+- **SSHFS / macFUSE**: se dejaron fuera del baseline porque en Apple Silicon pueden requerir bajar la postura de seguridad del sistema (`Reduced Security`). Si algún día los necesitás, instalalos manualmente y con esa decisión bien consciente.
 - **Neovim**: no se usa en esta fase.
 - **Config completa de opencode**: queda fuera. Si necesitás un theme puntual, aplicalo manualmente fuera del repo.
 - **Zellij auto-start**: fuera por ahora para no cambiar comportamiento de shell sin decisión explícita.
