@@ -45,7 +45,6 @@ cask "ghostty"
 cask "homerow"
 cask "orbstack"
 cask "tailscale-app"
-cask "visual-studio-code"
 
 # ─── Fuentes ──────────────────────────────────────────────────────────────────
 cask "font-iosevka-term-nerd-font"

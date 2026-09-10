@@ -336,7 +336,7 @@ if $IS_MAC && should_run "aerospace"; then
 fi
 
 # ─── VS Code ─────────────────────────────────────────────────────────────────
-if should_run "VS Code"; then
+if [[ "$CHOICES" == *"VS Code"* ]]; then
   title "VS Code"
   warn "VS Code es un fallback legacy/opcional; no forma parte del workflow terminal-first principal."
 

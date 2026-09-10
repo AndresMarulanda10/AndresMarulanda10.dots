@@ -259,8 +259,8 @@
   "explorer.compactFolders": false,
   // Sin confirmación al hacer drag & drop
   "explorer.confirmDragAndDrop": false,
-  // Sin confirmación al eliminar
-  "explorer.confirmDelete": false,
+  // Pide confirmación al eliminar
+  "explorer.confirmDelete": true,
   // Sin badges (contadores de cambios git sobre iconos)
   "explorer.decorations.badges": false,
   // Sin flechas en el árbol (material-icon-theme las reemplaza)
@@ -312,8 +312,8 @@
   "chat.emptyState.history.enabled": true,
   // Tool de todo list en el chat
   "chat.todoListTool.enabled": true,
-  // Auto-aprobación de tools igual que la configuración real actual.
-  "chat.tools.autoApprove": true,
+  // Requiere aprobación explícita para tools.
+  "chat.tools.autoApprove": false,
   // Usa chat sessions para el cloud button
   "chat.useChatSessionsForCloudButton": true,
   // Inline chat v2
@@ -335,8 +335,8 @@
   },
 
   // ─── Actualizaciones ───────────────────────────────────────────────────────
-  // Sin actualizaciones automáticas
-  "update.mode": "none",
+  // Busca actualizaciones al iniciar.
+  "update.mode": "start",
   // Ignora recomendaciones de extensiones
   "extensions.ignoreRecommendations": true,
 
