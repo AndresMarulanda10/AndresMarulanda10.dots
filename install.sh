@@ -204,7 +204,7 @@ COMMON_OPTS=(
   "ghostty — terminal"
   "atuin — historial shell"
   "fastfetch — resumen terminal"
-  "VS Code — settings, keybindings y perfiles"
+  "VS Code — legacy (optional) — settings, keybindings y perfiles"
   "Todo — instalar todo"
 )
 
@@ -222,7 +222,7 @@ elif $IS_CODESPACES; then
     "git — .gitconfig"
     "bat — config"
     "lazygit — config"
-    "VS Code — settings, keybindings y perfiles"
+    "VS Code — legacy (optional) — settings, keybindings y perfiles"
     "Todo — instalar todo"
   )
 else
@@ -338,6 +338,7 @@ fi
 # ─── VS Code ─────────────────────────────────────────────────────────────────
 if should_run "VS Code"; then
   title "VS Code"
+  warn "VS Code es un fallback legacy/opcional; no forma parte del workflow terminal-first principal."
 
   if $IS_MAC; then
     VSCODE_DIR="$HOME/Library/Application Support/Code/User"

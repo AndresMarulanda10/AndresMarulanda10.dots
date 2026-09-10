@@ -2,6 +2,7 @@
 # No guarda secretos: datos, keys y sesiones quedan en ~/.local/share/atuin.
 
 enter_accept = true
+auto_sync = false
+update_check = false
 
-[sync]
-records = true
+# Historial local solamente: no sincroniza ni consulta actualizaciones automáticamente.

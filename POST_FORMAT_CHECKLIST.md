@@ -26,7 +26,7 @@ cd ~/Documents/personal/AndresMarulanda10.dots
 - [ ] Correr `./install.sh`
 - [ ] Elegir módulos a instalar
 - [ ] Completar nombre y email para `~/.gitconfig.local`
-- [ ] Elegir plantillas de VS Code si corresponde
+- [ ] Si todavía se necesita el fallback, elegir plantillas de VS Code
 - [ ] Asignar aliases locales por proyecto si hace falta
 
 ## 4. Validar terminal y shell
@@ -41,15 +41,17 @@ cd ~/Documents/personal/AndresMarulanda10.dots
 
 - [ ] Verificar que `git`, `gh`, `bat`, `lazygit`, `eza`, `fd`, `rg` estén disponibles
 - [ ] Verificar que AeroSpace abra y pedir permisos de Accesibilidad si macOS los solicita
-- [ ] Verificar que VS Code abra y aplicar/recargar configuración
+- [ ] Si se usa el fallback, verificar que VS Code abra y aplicar/recargar configuración
 
-## 6. VS Code
+## 6. VS Code (legacy/opcional)
 
-- [ ] Abrir VS Code
+- [ ] Si se necesita el fallback, abrir VS Code
 - [ ] Ejecutar reload de ventana si hace falta
 - [ ] Confirmar que el theme / layout / extensiones base quedaron correctos
 - [ ] Confirmar plantillas por stack (`java-aws`, `web-ts`, `mobile-astro`, `data-science`)
 - [ ] Hacer login en GitHub / Copilot si aplica
+
+El estado de los workspaces de VS Code no se gestiona ni se recupera desde este repo.
 
 ## 7. Seguridad / manual
 
@@ -64,7 +66,7 @@ Estas cosas quedan manuales a propósito:
 
 - [ ] Hacer login en Tailscale
 - [ ] Hacer login en OrbStack si aplica
-- [ ] Instalar / abrir apps no cubiertas por el repo (Notion, WhatsApp, Discord, Raycast, etc.)
+- [ ] Instalar / abrir apps personales no cubiertas por el repo (WhatsApp, Discord, etc.)
 
 ## 9. Ajustes macOS
 

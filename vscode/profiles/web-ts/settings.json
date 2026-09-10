@@ -1,5 +1,5 @@
 {
-  // Tokinm / second-brain / laboratorio: Next.js + Node + Supabase + Vercel.
+  // General web TypeScript profile: Next.js + Node + Vercel.
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
 

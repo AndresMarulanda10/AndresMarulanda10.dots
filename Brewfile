@@ -1,7 +1,6 @@
 # ─── Taps ─────────────────────────────────────────────────────────────────────
 tap "gentleman-programming/tap"
 tap "nikitabobko/tap"
-tap "supabase/tap"
 
 # ─── CLI Base ─────────────────────────────────────────────────────────────────
 brew "atuin"                 # Historial shell mejorado
@@ -35,7 +34,6 @@ brew "zsh-syntax-highlighting"
 brew "gentleman-programming/tap/engram"
 brew "gentleman-programming/tap/gentle-ai"
 brew "gentleman-programming/tap/gga"
-brew "supabase/tap/supabase" # Supabase CLI
 
 # ─── Runtimes ─────────────────────────────────────────────────────────────────
 brew "node"                  # Next.js, Astro, Node

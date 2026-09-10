@@ -15,7 +15,7 @@ Uso:
 Perfiles:
   base          Solo settings/keybindings/extensiones globales
   java-aws      Davivienda: Java + AWS + Angular
-  web-ts        Next.js + Node + Supabase + Vercel
+  web-ts        Next.js + Node + Vercel
   mobile-astro  Astro + Flutter + Node + Figma
   data-science  Python + Jupyter
 

@@ -4,7 +4,7 @@ Este repo es un baseline público de dotfiles para reconstruir mi entorno macOS.
 
 ## Alcance
 
-Se versionan configuraciones reproducibles y seguras para un setup personal: shell, Git base, terminal, herramientas CLI, VS Code y apps instalables con Homebrew.
+Se versionan configuraciones reproducibles y seguras para un setup personal: shell, Git base, terminal, herramientas CLI, VS Code legacy/opcional y apps instalables con Homebrew. VS Code no es parte del workflow principal y el estado de sus workspaces no se gestiona ni se recupera desde este repo.
 
 Quedan fuera a propósito:
 

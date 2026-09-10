@@ -18,3 +18,6 @@
 # Logs / caches
 *.log
 .cache/
+
+# Local Gentle AI metadata
+/.atl/

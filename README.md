@@ -17,7 +17,7 @@ La estrategia principal ahora es **copy-based**: el instalador copia configs a l
 ├── ghostty/            # Config + shader usado por Ghostty
 ├── git/                # .gitconfig base; identidad local fuera del repo
 ├── lazygit/            # Lazygit
-├── vscode/             # Settings/perfiles aplicados por script propio
+├── vscode/             # Settings/perfiles legacy aplicados por script propio
 ├── zsh/                # .zprofile, .zshrc y theme andres
 ├── Brewfile
 └── install.sh
@@ -72,7 +72,7 @@ archivo.backup.YYYYMMDDHHMMSS
 | `atuin` | `~/.config/atuin/config.toml` |
 | `fastfetch` | `~/.config/fastfetch` |
 | `aerospace` | `~/.aerospace.toml` |
-| `VS Code` | Aplica settings reales con `vscode/apply-profile.sh` |
+| `VS Code` (legacy/opcional) | Aplica settings reales con `vscode/apply-profile.sh` |
 
 ---
 
@@ -113,16 +113,16 @@ Detalles importantes:
 
 ---
 
-## VS Code
+## VS Code (legacy/opcional)
 
-VS Code mantiene estrategia propia: `vscode/apply-profile.sh` combina settings versionables y escribe archivos reales en la config de VS Code. No usa symlink.
+VS Code se conserva como fallback legacy/opcional, fuera del workflow terminal-first principal. `vscode/apply-profile.sh` combina settings versionables y escribe archivos reales en la config de VS Code. No usa symlink. El estado de sus workspaces no se gestiona ni se recupera desde este repo.
 
 Plantillas disponibles:
 
 | Profile | Stack |
 |---------|-------|
 | `java-aws` | Java, AWS, Angular |
-| `web-ts` | Next.js, Node, Supabase, Vercel |
+| `web-ts` | Next.js, Node, Vercel |
 | `mobile-astro` | Astro, Flutter, Node, Figma |
 | `data-science` | Python, Jupyter |
 
@@ -171,4 +171,4 @@ También existe `POST_FORMAT_CHECKLIST.md` como guía operativa para reconstruir
 | macOS Apple Silicon | ✅ Principal |
 | macOS Intel | ✅ Soportado |
 | Linux | ⚠️ Parcial; se omiten apps macOS-only |
-| GitHub Codespaces | ⚠️ Básico: zsh, git, bat, lazygit, VS Code |
+| GitHub Codespaces | ⚠️ Básico: zsh, git, bat, lazygit y VS Code legacy/opcional |

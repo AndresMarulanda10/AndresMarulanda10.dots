@@ -53,3 +53,6 @@ alias proj='cd ~/Documents/Projects'
 
 # Utilidades
 function mkcd() { mkdir -p "$1" && cd "$1" }
+
+# Hermes Agent — ensure ~/.local/bin is on PATH
+export PATH="$HOME/.local/bin:$PATH"

@@ -1,4 +1,4 @@
-# Next.js + Node + Supabase + Vercel
+# Next.js + Node + Vercel
 bradlc.vscode-tailwindcss
 biomejs.biome
 esbenp.prettier-vscode
