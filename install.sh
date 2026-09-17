@@ -204,6 +204,7 @@ COMMON_OPTS=(
   "ghostty — terminal"
   "atuin — historial shell"
   "fastfetch — resumen terminal"
+  "Neovim — terminal-first editor"
   "VS Code — legacy (optional) — settings, keybindings y perfiles"
   "Todo — instalar todo"
 )
@@ -215,7 +216,7 @@ MAC_OPTS=(
 
 # Armar lista según OS
 if $IS_MAC; then
-  ALL_OPTS=("${COMMON_OPTS[@]:0:8}" "${MAC_OPTS[@]}" "${COMMON_OPTS[@]:8}")
+  ALL_OPTS=("${COMMON_OPTS[@]:0:9}" "${MAC_OPTS[@]}" "${COMMON_OPTS[@]:9}")
 elif $IS_CODESPACES; then
   ALL_OPTS=(
     "zsh — config y theme"
@@ -333,6 +334,12 @@ fi
 if $IS_MAC && should_run "aerospace"; then
   title "AeroSpace"
   copy_config "$DOTFILES_DIR/aerospace/.aerospace.toml" "$HOME/.aerospace.toml"
+fi
+
+# ─── Neovim ───────────────────────────────────────────────────────────────────
+if should_run "Neovim"; then
+  title "Neovim"
+  copy_config "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 fi
 
 # ─── VS Code ─────────────────────────────────────────────────────────────────

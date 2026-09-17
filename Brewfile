@@ -15,9 +15,12 @@ brew "fd"                    # find moderno
 brew "fzf"                   # Búsqueda difusa
 brew "gh"                    # GitHub CLI
 brew "git"                   # Git
+brew "ghostscript"           # PDF support for image processing
 brew "gum"                   # UI para scripts shell
+brew "imagemagick"            # Raster image processing for Neovim
 brew "lazygit"               # Git TUI
 brew "mole"                  # Gestión de túneles SSH
+brew "neovim"                # Editor terminal-first
 brew "ripgrep"               # grep moderno
 brew "tree"                  # Árbol de directorios
 brew "zellij"                # Multiplexor terminal

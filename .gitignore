@@ -21,3 +21,6 @@
 
 # Local Gentle AI metadata
 /.atl/
+
+# Local CodeGraph index
+/.codegraph/

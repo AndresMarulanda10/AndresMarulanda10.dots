@@ -1,57 +1,57 @@
-# ─── Monokai Pro palette ──────────────────────────────────────────────────────
-# #FF6188 pink  | #FC9867 orange | #FFD866 yellow
-# #A9DC76 green | #78DCE8 cyan   | #AB9DF2 purple
-# #272822 bg    | #FCFCFA fg
+# ─── Gruvbox palette ──────────────────────────────────────────────────────────
+# #fb4934 red   | #fe8019 orange | #fabd2f yellow
+# #b8bb26 green | #8ec07c aqua   | #83a598 blue | #d3869b purple
+# #282828 bg    | #ebdbb2 fg
 
-MODE_INDICATOR="%F{#FF6188}❮❮❮%f"
-local return_status="%F{#FF6188}%(?..⏎)%f "
+MODE_INDICATOR="%F{#fb4934}❮❮❮%f"
+local return_status="%F{#fb4934}%(?..⏎)%f "
 
 # ─── Text styles ──────────────────────────────────────────────────────────────
 ITALIC_ON=$'\e[3m'
 ITALIC_OFF=$'\e[23m'
 
 # ─── Git prompt ───────────────────────────────────────────────────────────────
-ZSH_THEME_GIT_PROMPT_PREFIX=" %B${ITALIC_ON}%F{#78DCE8}"
+ZSH_THEME_GIT_PROMPT_PREFIX=" %B${ITALIC_ON}%F{#83a598}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%f${ITALIC_OFF}%b"
-ZSH_THEME_GIT_PROMPT_DIRTY="%F{#FF6188} ⚡%f"
-ZSH_THEME_GIT_PROMPT_AHEAD="%F{#FC9867} !%f"
-ZSH_THEME_GIT_PROMPT_CLEAN="%F{#A9DC76} ✓%f"
-ZSH_THEME_GIT_PROMPT_ADDED="%F{#A9DC76} ✚%f"
-ZSH_THEME_GIT_PROMPT_MODIFIED="%F{#78DCE8} ✹%f"
-ZSH_THEME_GIT_PROMPT_DELETED="%F{#FF6188} ✖%f"
-ZSH_THEME_GIT_PROMPT_RENAMED="%F{#AB9DF2} ➜%f"
-ZSH_THEME_GIT_PROMPT_UNMERGED="%F{#FFD866} ═%f"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%F{#FC9867} ✭%f"
+ZSH_THEME_GIT_PROMPT_DIRTY="%F{#fb4934} ⚡%f"
+ZSH_THEME_GIT_PROMPT_AHEAD="%F{#fe8019} !%f"
+ZSH_THEME_GIT_PROMPT_CLEAN="%F{#b8bb26} ✓%f"
+ZSH_THEME_GIT_PROMPT_ADDED="%F{#b8bb26} ✚%f"
+ZSH_THEME_GIT_PROMPT_MODIFIED="%F{#8ec07c} ✹%f"
+ZSH_THEME_GIT_PROMPT_DELETED="%F{#fb4934} ✖%f"
+ZSH_THEME_GIT_PROMPT_RENAMED="%F{#d3869b} ➜%f"
+ZSH_THEME_GIT_PROMPT_UNMERGED="%F{#fabd2f} ═%f"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%F{#fe8019} ✭%f"
 
 # ─── Runtime version detection ────────────────────────────────────────────────
 function runtime_info() {
     # Angular (tiene precedencia sobre Node)
     if [[ -f "angular.json" ]]; then
         local version=$(node -e "const p=require('./package.json');const v=p.dependencies?.['@angular/core']||p.devDependencies?.['@angular/core']||'?';console.log(v.replace(/[\^~]/,''))" 2>/dev/null)
-        echo " %F{#FCFCFA}❄%f %B%F{#FF6188}Ⓐ ${version}%f%b %F{#AB9DF2}·%f"
+        echo " %F{#ebdbb2}❄%f %B%F{#fb4934}Ⓐ ${version}%f%b %F{#d3869b}·%f"
         return
     fi
 
     # Node
     if [[ -f "package.json" ]]; then
         local version=$(node --version 2>/dev/null)
-        echo " %F{#FCFCFA}❄%f %B%F{#A9DC76}⬡ ${version}%f%b %F{#AB9DF2}·%f"
+        echo " %F{#ebdbb2}❄%f %B%F{#b8bb26}⬡ ${version}%f%b %F{#d3869b}·%f"
         return
     fi
 
     # Java (Maven o Gradle)
     if [[ -f "pom.xml" ]] || [[ -f "build.gradle" ]] || [[ -f "build.gradle.kts" ]]; then
         local version=$(java -version 2>&1 | head -1 | sed 's/.*version "\(.*\)".*/\1/')
-        echo " %F{#FCFCFA}❄%f %B%F{#FFD866}☕ ${version}%f%b %F{#AB9DF2}·%f"
+        echo " %F{#ebdbb2}❄%f %B%F{#fabd2f}☕ ${version}%f%b %F{#d3869b}·%f"
         return
     fi
 }
 
 # ─── Git time since commit ────────────────────────────────────────────────────
-ZSH_THEME_GIT_TIME_SINCE_COMMIT_SHORT="%F{#A9DC76}"
-ZSH_THEME_GIT_TIME_SHORT_COMMIT_MEDIUM="%F{#FFD866}"
-ZSH_THEME_GIT_TIME_SINCE_COMMIT_LONG="%F{#FF6188}"
-ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL="%F{#78DCE8}"
+ZSH_THEME_GIT_TIME_SINCE_COMMIT_SHORT="%F{#b8bb26}"
+ZSH_THEME_GIT_TIME_SHORT_COMMIT_MEDIUM="%F{#fabd2f}"
+ZSH_THEME_GIT_TIME_SINCE_COMMIT_LONG="%F{#fb4934}"
+ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL="%F{#83a598}"
 
 function git_time_since_commit() {
     if git rev-parse --git-dir > /dev/null 2>&1; then
@@ -83,7 +83,7 @@ function git_time_since_commit() {
                 echo "[$COLOR${MINUTES}m%f]"
             fi
         else
-            echo "[%F{#78DCE8}~%f]"
+            echo "[%F{#83a598}~%f]"
         fi
     fi
 }
@@ -92,6 +92,6 @@ function git_time_since_commit() {
 # precmd vacío evita que zsh imprima el número de línea antes del prompt multilinea
 precmd() { print -n "" }
 
-PROMPT=$'\n%B%F{#FFD866}andresmarulanda%f%b %{\e[3m%}%F{#FC9867}%(5~|%-1~/\u2026/%3~|%4~)%f%{\e[23m%}$(runtime_info)$(git_prompt_info)\n%F{#FF6188}\u276f%f '
+PROMPT=$'\n%B%F{#fabd2f}andresmarulanda%f%b %{\e[3m%}%F{#fe8019}%(5~|%-1~/\u2026/%3~|%4~)%f%{\e[23m%}$(runtime_info)$(git_prompt_info)\n%F{#fb4934}\u276f%f '
 
 RPROMPT='${return_status}$(git_time_since_commit)$(git_prompt_status)%f'

@@ -72,6 +72,10 @@ keybind = cmd+k=clear_screen
 keybind = shift+enter=text:\x1b\r
 
 # Reenviar Cmd+key a editores terminal compatibles.
+keybind = cmd+b=text:\x1bb
+keybind = cmd+shift+p=text:\x1b:
+keybind = cmd+shift+h=text:\x1bH
+keybind = cmd+c=text:\x1bc
 keybind = cmd+z=esc:z
 keybind = cmd+shift+z=esc:Z
 keybind = cmd+x=esc:x
@@ -79,6 +83,10 @@ keybind = cmd+a=esc:a
 keybind = cmd+slash=esc:/
 keybind = cmd+p=esc:p
 keybind = cmd+d=esc:d
+keybind = cmd+left=text:\x1b[H
+keybind = cmd+right=text:\x1b[F
+keybind = cmd+shift+left=text:\x1b[1;2H
+keybind = cmd+shift+right=text:\x1b[1;2F
 
 # Open file with editor terminal (write editor command first, then use this keybinding).
 keybind = alt+s=write_screen_file:paste
