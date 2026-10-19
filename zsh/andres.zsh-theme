@@ -92,6 +92,8 @@ function git_time_since_commit() {
 # precmd vacío evita que zsh imprima el número de línea antes del prompt multilinea
 precmd() { print -n "" }
 
-PROMPT=$'\n%B%F{#fabd2f}andresmarulanda%f%b %{\e[3m%}%F{#fe8019}%(5~|%-1~/\u2026/%3~|%4~)%f%{\e[23m%}$(runtime_info)$(git_prompt_info)\n%F{#fb4934}\u276f%f '
+PROMPT_USER_LABEL="andresmarulanda"
+
+PROMPT=$'\n%B%F{#fabd2f}'"${PROMPT_USER_LABEL}"$'%f%b %{\e[3m%}%F{#fe8019}%(5~|%-1~/\u2026/%3~|%4~)%f%{\e[23m%}$(runtime_info)$(git_prompt_info)\n%F{#fb4934}\u276f%f '
 
 RPROMPT='${return_status}$(git_time_since_commit)$(git_prompt_status)%f'
