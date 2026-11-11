@@ -13,7 +13,7 @@ Make the repository reproduce the approved terminal-first Mac baseline and docum
 
 ## Tasks
 - [x] T1: Align package declarations and installer choices with the approved baseline; cover installer selection behavior with isolated tests. Commit: `c079176`.
-- [ ] T2: Add the portable Dracula theme and safe recovery documentation, including app inventory, symlink policy, and pending SSH setup.
+- [x] T2: Add the portable Dracula theme and safe recovery documentation, including app inventory, symlink policy, and pending SSH setup. Commit: `bc198f3`.
 
 ## Routing
 - T1: delegated direct; multi-file implementation and preparation require one bounded writer.
@@ -35,9 +35,9 @@ Make the repository reproduce the approved terminal-first Mac baseline and docum
 
 ## Progress
 - Exploration: installed app inventory and repository drift were inspected read-only; no private SSH/authentication data belongs in recovery artifacts.
-- Implementation: T1 and T2 source changes prepared on `feat/mac-rebuild-sync`; task closure awaits verification and work-unit commits. No installer, SSH connection, package install/uninstall or live configuration change was performed.
+- Implementation: T1 and T2 committed on `feat/mac-rebuild-sync`; independent functional verification passed. No installer, SSH connection, package install/uninstall or live configuration change was performed.
 - RED: `bash tests/bootstrap-contract.sh` failed on the baseline selection helper (Todo enabled VS Code/nonexistent modules); GREEN after offered-option matching and package/editor alignment.
 - Engram mirror: saved observation `11224`; related-memory judgment completed.
 - Rollback boundaries: T1 package/menu/editor behavior with its tests and docs; T2 standalone theme copying and recovery documentation. Runtime evidence uses extracted inert helpers/menu only; no full installation or visual rendering is claimed. RDD remains off.
 - Verification after source normalization: `bash tests/bootstrap-contract.sh` PASS (also staged T1 in isolation); `bash -n install.sh vscode/apply-profile.sh` PASS; `zsh -n zsh/.zprofile zsh/.zshrc zsh/andres.zsh-theme` PASS; `ruby -c Brewfile` Syntax OK; Python JSON parse/byte comparison/six transparent values PASS; `git diff --check` PASS.
-- T2 implementation and checks passed; checkbox closure awaits the final commit identity recorded in the parent handoff (a commit cannot embed its own hash). No clean-Mac or visual test was performed.
+- Parent spot check and independent verifier passed; committed assessment: high risk (shell/security boundaries), RDD off. No clean-Mac or visual test was performed. Next: human review and separately authorized publication.
