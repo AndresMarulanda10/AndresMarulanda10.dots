@@ -9,8 +9,8 @@ if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
 fi
 
 # ─── Editor ───────────────────────────────────────────────────────────────────
-export EDITOR="code --wait"
-export VISUAL="code --wait"
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 # ─── Plugins ──────────────────────────────────────────────────────────────────
 if command -v brew &>/dev/null; then

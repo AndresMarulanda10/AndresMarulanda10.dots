@@ -2,7 +2,7 @@
 
 This document records the operational workflow for organizing projects and working with Herdr, OpenCode, LazyGit, and Neovim. It is a practical starting point, not an immutable business priority decision.
 
-Herdr is installed as the Homebrew core formula `herdr`. It is covered by the existing TUI installation flow: `Brewfile` -> `install.sh` -> `brew bundle`. OpenCode is tracked in the same Brewfile through `anomalyco/tap`.
+Herdr is installed as the Homebrew core formula `herdr`. It is covered by the existing TUI installation flow: `Brewfile` -> `install.sh` -> `brew bundle`. OpenCode V2 uses `anomalyco/tap/opencode-v2`; Neovim is the shell and Git editor. No VS Code diff/merge default is configured.
 
 ## Tool Roles
 
@@ -45,7 +45,7 @@ brew bundle --file="$DOTFILES_DIR/Brewfile"
 herdr --help
 ```
 
-The current Homebrew installation also contains Orca, but Homebrew marks that cask as disabled by the macOS Gatekeeper check. It is therefore documented as a manual recovery item rather than included in the automated Brewfile path.
+Orca is explicitly excluded from recovery, even if currently installed. RealVNC and VS Code are also excluded; Moonlight replaces the remote-streaming app declaration, not its private connections or pairing state. No current application is uninstalled by this synchronization.
 
 For project work, start each tool from the relevant project root:
 

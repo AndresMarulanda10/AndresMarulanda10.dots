@@ -25,6 +25,7 @@ brew "imagemagick"            # Raster image processing for Neovim
 brew "lazygit"               # Git TUI
 brew "mole"                  # Gestión de túneles SSH
 brew "neovim"                # Editor terminal-first
+brew "mpv"                   # Reproductor multimedia
 brew "ripgrep"               # grep moderno
 brew "tree"                  # Árbol de directorios
 brew "zellij"                # Multiplexor terminal
@@ -38,7 +39,7 @@ brew "zsh-autosuggestions"   # Sugerencias estilo fish
 brew "zsh-syntax-highlighting"
 
 # ─── Desarrollo e IA ──────────────────────────────────────────────────────────
-brew "anomalyco/tap/opencode"
+brew "anomalyco/tap/opencode-v2"
 brew "corepack"              # Node package manager shims
 brew "gentleman-programming/tap/engram"
 brew "gentleman-programming/tap/gentle-ai"
@@ -53,14 +54,15 @@ brew "openjdk"               # Java
 brew "rust"                  # Rust projects
 
 # ─── Apps macOS ───────────────────────────────────────────────────────────────
-cask "nikitabobko/tap/aerospace"
-cask "ghostty"
-cask "homerow"
-cask "orbstack"
-cask "realvnc-connect-viewer"
-cask "tailscale-app"
-cask "visual-studio-code"
+if OS.mac?
+  cask "nikitabobko/tap/aerospace"
+  cask "ghostty"
+  cask "homerow"
+  cask "orbstack"
+  cask "moonlight"
+  cask "tailscale-app"
 
 # ─── Fuentes ──────────────────────────────────────────────────────────────────
-cask "font-iosevka-term-nerd-font"
-cask "font-jetbrains-mono-nerd-font"
+  cask "font-iosevka-term-nerd-font"
+  cask "font-jetbrains-mono-nerd-font"
+end

@@ -112,7 +112,15 @@ EOF
 }
 
 should_run() {
-  echo "$CHOICES" | grep -qF "$1" || echo "$CHOICES" | grep -qF "Todo"
+  local option
+  for option in "${ALL_OPTS[@]}"; do
+    [[ "$option" == "$1 — "* ]] || continue
+    if grep -qxF "$option" <<< "$CHOICES" ||
+       grep -qxF "Todo — instalar todo" <<< "$CHOICES"; then
+      return 0
+    fi
+  done
+  return 1
 }
 
 # ─── Header ───────────────────────────────────────────────────────────────────
@@ -185,7 +193,7 @@ if $IS_CODESPACES; then
     --border-foreground "#78DCE8" --border rounded \
     --padding "0 2" \
     "☁  GitHub Codespaces" \
-    "$(gum style --foreground '#FCFCFA' --faint 'Solo se instalan: zsh, git, bat, lazygit y VS Code.')"
+    "$(gum style --foreground '#FCFCFA' --faint 'Solo se configuran: zsh, git, bat y lazygit.')"
   echo ""
 fi
 
@@ -205,7 +213,6 @@ COMMON_OPTS=(
   "atuin — historial shell"
   "fastfetch — resumen terminal"
   "Neovim — terminal-first editor"
-  "VS Code — legacy (optional) — settings, keybindings y perfiles"
   "Todo — instalar todo"
 )
 
@@ -223,7 +230,6 @@ elif $IS_CODESPACES; then
     "git — .gitconfig"
     "bat — config"
     "lazygit — config"
-    "VS Code — legacy (optional) — settings, keybindings y perfiles"
     "Todo — instalar todo"
   )
 else
@@ -250,9 +256,8 @@ if should_run "Brewfile"; then
 
   BREW_FLAGS="--file=$DOTFILES_DIR/Brewfile"
 
-  # En Linux saltear los casks macOS-only
+  # Brewfile limita los casks a macOS; Linux conserva paquetes existentes.
   if $IS_LINUX; then
-    warn "Saltando casks macOS-only (orbstack, aerospace, homerow, mole)"
     BREW_FLAGS="$BREW_FLAGS --no-upgrade"
   fi
 
@@ -263,6 +268,7 @@ if should_run "Brewfile"; then
     ok "brew bundle completado"
   else
     err "brew bundle falló — revisá el output"
+    exit 1
   fi
 fi
 
@@ -340,64 +346,6 @@ fi
 if should_run "Neovim"; then
   title "Neovim"
   copy_config "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
-fi
-
-# ─── VS Code ─────────────────────────────────────────────────────────────────
-if [[ "$CHOICES" == *"VS Code"* ]]; then
-  title "VS Code"
-  warn "VS Code es un fallback legacy/opcional; no forma parte del workflow terminal-first principal."
-
-  if $IS_MAC; then
-    VSCODE_DIR="$HOME/Library/Application Support/Code/User"
-  else
-    VSCODE_DIR="$HOME/.config/Code/User"
-  fi
-
-  if [[ ! -d "$VSCODE_DIR" ]]; then
-    err "VS Code no está instalado o nunca se abrió"
-  else
-    gum style --foreground "#FFD866" --bold "¿Qué plantillas VS Code querés aplicar además de base?"
-    info "base se aplica siempre; podés no elegir plantillas extra."
-    info "Después podés guardar un alias local por proyecto (ej: Tokinm, Davivienda, Ancrar)."
-    echo ""
-
-    VSCODE_PROFILES=$(gum choose --no-limit \
-      --cursor-prefix "○ " \
-      --selected-prefix "● " \
-      --unselected-prefix "○ " \
-      --selected.foreground "#FFD866" \
-      --cursor.foreground "#FF6188" \
-      --height 8 \
-      "java-aws" \
-      "web-ts" \
-      "mobile-astro" \
-      "data-science" || true)
-
-    APPLY_ARGS=("base")
-
-    if [[ -z "$VSCODE_PROFILES" ]]; then
-      "$DOTFILES_DIR/vscode/apply-profile.sh" "${APPLY_ARGS[@]}"
-    else
-      # shellcheck disable=SC2206
-      SELECTED_PROFILES=($VSCODE_PROFILES)
-
-      for TEMPLATE in "${SELECTED_PROFILES[@]}"; do
-        echo ""
-        ALIAS=$(gum input \
-          --placeholder "Opcional: Tokinm / Davivienda / Ancrar" \
-          --prompt "Alias local para $TEMPLATE: ")
-
-        ALIAS="${ALIAS//:/-}"
-        if [[ -n "${ALIAS// }" ]]; then
-          APPLY_ARGS+=("$TEMPLATE:$ALIAS")
-        else
-          APPLY_ARGS+=("$TEMPLATE")
-        fi
-      done
-
-      "$DOTFILES_DIR/vscode/apply-profile.sh" "${APPLY_ARGS[@]}"
-    fi
-  fi
 fi
 
 # ─── Done ────────────────────────────────────────────────────────────────────

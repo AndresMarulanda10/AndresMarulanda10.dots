@@ -4,7 +4,7 @@
 
 # ─── Editor ───────────────────────────────────────────────────────────────────
 [core]
-	editor     = code --wait
+	editor     = nvim
 	autocrlf   = input
 	whitespace = trailing-space,space-before-tab
 
@@ -15,19 +15,6 @@
 [push]
 	default      = current
 	autoSetupRemote = true
-
-# ─── Diff / Merge ─────────────────────────────────────────────────────────────
-[merge]
-	tool = vscode
-
-[mergetool "vscode"]
-	cmd = code --wait $MERGED
-
-[diff]
-	tool = vscode
-
-[difftool "vscode"]
-	cmd = code --wait --diff $LOCAL $REMOTE
 
 # ─── Colores ──────────────────────────────────────────────────────────────────
 [color]
