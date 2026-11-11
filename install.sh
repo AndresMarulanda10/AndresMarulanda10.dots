@@ -213,6 +213,7 @@ COMMON_OPTS=(
   "atuin — historial shell"
   "fastfetch — resumen terminal"
   "Neovim — terminal-first editor"
+  "OpenCode theme — Dracula transparente"
   "Todo — instalar todo"
 )
 
@@ -349,6 +350,11 @@ if should_run "Neovim"; then
 fi
 
 # ─── Done ────────────────────────────────────────────────────────────────────
+if should_run "OpenCode theme"; then
+  title "OpenCode theme"
+  copy_config "$DOTFILES_DIR/opencode/themes/dracula-terminal.json" "$HOME/.config/opencode/themes/dracula-terminal.json"
+fi
+
 echo ""
 gum style \
   --foreground "#A9DC76" --bold \

@@ -26,8 +26,7 @@ cd ~/Documents/personal/AndresMarulanda10.dots
 - [ ] Correr `./install.sh`
 - [ ] Elegir módulos a instalar
 - [ ] Completar nombre y email para `~/.gitconfig.local`
-- [ ] Si todavía se necesita el fallback, elegir plantillas de VS Code
-- [ ] Asignar aliases locales por proyecto si hace falta
+- [ ] Revisar [APP_RECOVERY.md](APP_RECOVERY.md) antes de recuperar apps manuales
 
 ## 4. Validar terminal y shell
 
@@ -41,17 +40,15 @@ cd ~/Documents/personal/AndresMarulanda10.dots
 
 - [ ] Verificar que `git`, `gh`, `bat`, `lazygit`, `eza`, `fd`, `rg` estén disponibles
 - [ ] Verificar que AeroSpace abra y pedir permisos de Accesibilidad si macOS los solicita
-- [ ] Si se usa el fallback, verificar que VS Code abra y aplicar/recargar configuración
+- [ ] Verificar `opencode --version`, `nvim`, `mpv` y Moonlight
 
-## 6. VS Code (legacy/opcional)
+## 6. Editor y asistencia
 
-- [ ] Si se necesita el fallback, abrir VS Code
-- [ ] Ejecutar reload de ventana si hace falta
-- [ ] Confirmar que el theme / layout / extensiones base quedaron correctos
-- [ ] Confirmar plantillas por stack (`java-aws`, `web-ts`, `mobile-astro`, `data-science`)
-- [ ] Hacer login en GitHub / Copilot si aplica
+- [ ] Confirmar que Git y shell usan Neovim
+- [ ] Configurar proveedores de OpenCode V2 manualmente, fuera del repo
+- [ ] Opcional: instalar `OpenCode theme` y seleccionar `dracula-terminal` en la UI
 
-El estado de los workspaces de VS Code no se gestiona ni se recupera desde este repo.
+VS Code, RealVNC y Orca no forman parte de la recuperación aprobada.
 
 ## 7. Seguridad / manual
 

@@ -18,7 +18,7 @@ La estrategia principal ahora es **copy-based**: el instalador copia configs a l
 ├── git/                # .gitconfig base; identidad local fuera del repo
 ├── lazygit/            # Lazygit
 ├── nvim/               # Configuración de Neovim terminal-first
-├── vscode/             # Settings/perfiles legacy aplicados por script propio
+├── vscode/             # Archivos históricos inactivos; fuera del instalador
 ├── zsh/                # .zprofile, .zshrc y theme andres
 ├── Brewfile
 └── install.sh
@@ -80,7 +80,7 @@ archivo.backup.YYYYMMDDHHMMSS
 | `fastfetch` | `~/.config/fastfetch` |
 | `aerospace` | `~/.aerospace.toml` |
 | `Neovim` (opcional) | `~/.config/nvim` |
-| `VS Code` (legacy/opcional) | Aplica settings reales con `vscode/apply-profile.sh` |
+| `OpenCode theme` (opcional) | Solo `~/.config/opencode/themes/dracula-terminal.json` |
 
 ---
 
@@ -123,7 +123,7 @@ Detalles importantes:
 
 ## VS Code (legacy/opcional)
 
-VS Code se conserva como fallback legacy/opcional, fuera del workflow terminal-first principal. `vscode/apply-profile.sh` combina settings versionables y escribe archivos reales en la config de VS Code. No usa symlink. El estado de sus workspaces no se gestiona ni se recupera desde este repo.
+VS Code queda fuera del baseline y del instalador. `vscode/**` conserva archivos históricos inactivos; los siguientes comandos son solo referencia histórica, no pasos de recuperación aprobados.
 
 Plantillas disponibles:
 
@@ -152,7 +152,7 @@ Queda intencionalmente fuera:
 - **SSH config**: manual y no versionable por seguridad.
 - **Claves SSH**: generarlas manualmente después del setup y recién ahí cambiar remotes a SSH.
 - **SSHFS / macFUSE**: se dejaron fuera del baseline porque en Apple Silicon pueden requerir bajar la postura de seguridad del sistema (`Reduced Security`). Si algún día los necesitás, instalalos manualmente y con esa decisión bien consciente.
-- **Config completa de opencode**: queda fuera. Si necesitás un theme puntual, aplicalo manualmente fuera del repo.
+- **Config completa de OpenCode**: queda fuera; la única excepción es el theme independiente `dracula-terminal`. Elegir `OpenCode theme` en el instalador y después seleccionarlo en la UI de OpenCode. No se sobrescribe `cli.json` ni `opencode.json`; la transparencia visual depende del terminal.
 - **Zellij auto-start**: fuera por ahora para no cambiar comportamiento de shell sin decisión explícita.
 - **Login en apps**: Tailscale, GitHub/Copilot, OrbStack y cualquier app personal siguen siendo manuales.
 - **Permisos de macOS**: Accesibilidad / Full Disk Access para apps como AeroSpace o Ghostty siguen siendo manuales.
@@ -168,6 +168,7 @@ Por ahora el flujo es repo → sistema. No hay sincronización automática siste
 Si en el futuro hace falta capturar cambios locales, conviene implementar un comando explícito de sync/reconcile con diff y allowlist. No hacerlo a medias: copiar configs locales sin revisar es una receta para versionar basura o secretos, y eso NO.
 
 También existe `POST_FORMAT_CHECKLIST.md` como guía operativa para reconstruir la Mac paso a paso.
+Consultar [APP_RECOVERY.md](APP_RECOVERY.md) para inventario, canales manuales y symlinks heredados.
 
 ---
 
@@ -178,4 +179,4 @@ También existe `POST_FORMAT_CHECKLIST.md` como guía operativa para reconstruir
 | macOS Apple Silicon | ✅ Principal |
 | macOS Intel | ✅ Soportado |
 | Linux | ⚠️ Parcial; se omiten apps macOS-only |
-| GitHub Codespaces | ⚠️ Básico: zsh, git, bat, lazygit y VS Code legacy/opcional |
+| GitHub Codespaces | ⚠️ Solo configuración: zsh, git, bat y lazygit |

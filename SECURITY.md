@@ -4,14 +4,14 @@ Este repo es un baseline público de dotfiles para reconstruir mi entorno macOS.
 
 ## Alcance
 
-Se versionan configuraciones reproducibles y seguras para un setup personal: shell, Git base, terminal, herramientas CLI, VS Code legacy/opcional y apps instalables con Homebrew. VS Code no es parte del workflow principal y el estado de sus workspaces no se gestiona ni se recupera desde este repo.
+Se versionan configuraciones reproducibles y seguras: shell, Git base, terminal, herramientas CLI y apps de Homebrew. VS Code queda como archivo histórico inactivo, fuera del baseline y de la recuperación.
 
 Quedan fuera a propósito:
 
 - llaves SSH y `~/.ssh/config`
 - tokens, `.env`, credenciales y archivos `*.local`
 - identidad Git real fuera de `~/.gitconfig.local`
-- configuración completa de herramientas privadas o cambiantes como opencode
+- configuración completa de OpenCode, salvo `opencode/themes/dracula-terminal.json`, asset independiente sin credenciales
 - logins, permisos de macOS y sesiones de apps
 
 ## Bootstrap

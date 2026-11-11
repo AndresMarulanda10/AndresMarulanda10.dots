@@ -24,3 +24,9 @@
 
 # Local CodeGraph index
 /.codegraph/
+
+# Only the portable theme is public, never OpenCode runtime configuration.
+/opencode/*
+!/opencode/themes/
+/opencode/themes/*
+!/opencode/themes/dracula-terminal.json
